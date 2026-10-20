@@ -1,7 +1,8 @@
 'use strict';
 /* =====================================================================
    ADATOK – ezt a blokkot kell frissíteni, amikor új elemzés jelenik meg.
-   Séma és szabályok: az "adoradar-jelzes-kinyeres" skill.
+   Séma és szabályok: az "adoradar-frissites" skill. A GitHub-változatot
+   (cr4j7sbkg2-afk/adoradar) a repó tools/artifact2gh.py szkriptje generálja ebből a fájlból.
    ===================================================================== */
 var STAMP='2026-10-21';
 var KALAUZ_URL='https://cr4j7sbkg2-afk.github.io/vagyonado-kalauz2026/';
