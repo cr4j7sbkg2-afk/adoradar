@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<!--
+  ===================== ADÓRADAR 2027 · PROTOTÍPUS =====================
+  Arculat: a Vagyonadó-kalauz elemei (Montserrat, navy #13407D, négy szakterületi szín,
+  sötét fotós fejléc, "Built on trust" márkasáv, navy lábléc négyszegmensű csíkkal).
+
+  TARTALOM FRISSÍTÉSE: a radar.js elején lévő ADATOK blokk.
+    • SRC   – BP-elemzések (cím, dátum, URL)
+    • SIG   – a radar jelzései (egy intézkedés = egy sor)
+    • CAL   – határidők és mérföldkövek
+    • DOS   – dossziék
+    • ACT   – teendők profilonként
+  Új cikk = új SRC sor + a belőle kinyert SIG sorok. A státusz (st) 1–4: bejelentés, tervezet, elfogadva, hatályos.
+-->
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="A BékésPartners elemzéseiben azonosított 2026–2027-es adó- és jogszabályváltozások egy radaron: státusz, érintettek, határidők és teendők.">
+<meta name="robots" content="index,follow">
+<meta name="color-scheme" content="light">
+<title>Adóradar 2027 | BékésPartners</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2313407D'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23EBA720' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="radar.css">
+</head>
+<body>
+<div class="brandbar" id="brandbar">
+  <div class="wrap">
+    <div class="brandrow">
+      <a class="logolink" href="https://www.bekespartners.com/" target="_blank" rel="noopener noreferrer" aria-label="BékésPartners kezdőlap"><img class="logo" src="logo.png" alt="BékésPartners" width="572" height="80"></a>
+      <div class="brandright">
+        <nav class="sitenav" aria-label="BékésPartners főoldal">
+          <a href="https://www.bekespartners.com/rolunk/" target="_blank" rel="noopener noreferrer">Rólunk</a>
+          <a href="https://www.bekespartners.com/ado/" target="_blank" rel="noopener noreferrer">Szolgáltatásaink</a>
+          <a href="https://www.bekespartners.com/insights-2/" target="_blank" rel="noopener noreferrer">Insights</a>
+          <a href="https://www.bekespartners.com/kapcsolat/" target="_blank" rel="noopener noreferrer">Kapcsolat</a>
+        </nav>
+        <span class="motto">Built on trust</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header class="masthead" id="radar">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="h-text">
+        <div class="practice-chip"><span class="pc-dots" aria-hidden="true"><i style="background:var(--seg1)"></i><i style="background:var(--seg2)"></i><i style="background:var(--seg3)"></i><i style="background:var(--seg4)"></i></span>Insights<span class="pc-sep">·</span><span class="pc-tag">Market intelligence</span></div>
+        <div class="eyebrow" id="stamp">Szabályozási radar · állapot: 2026. október 20.</div>
+        <h1>Adóradar <span>2027</span></h1>
+        <p class="lead">Minden változás, amelyet a BékésPartners 2026-os elemzései azonosítottak, egy térképen: hol tart a jogalkotásban, kit érint, mikortól, és mit érdemes most tenni.</p>
+      </div>
+      <div class="h-prof">
+        <div class="h-lbl" id="profLbl">Kit érint?</div>
+        <div class="prof" id="prof" role="group" aria-labelledby="profLbl"></div>
+      </div>
+      <div class="h-radar">
+        <div class="radar" id="radarBox">
+          <svg id="rbg" viewBox="-300 -300 600 600" aria-hidden="true"></svg>
+          <div class="sweep" id="sweep" aria-hidden="true"></div>
+          <svg id="rfg" viewBox="-300 -300 600 600" role="group" aria-label="Változások a radaron: középen a hatályos, kifelé haladva az elfogadott, a tervezett és a bejelentett szabályok"></svg>
+          <div class="rtip" id="rtip" hidden></div>
+        </div>
+        <div class="rleg" id="rleg"></div>
+        <p class="rhint">Kattintson egy pontra. Középen a már hatályos, kívül a még csak bejelentett szabályok.</p>
+        <noscript><p class="rhint">A radarhoz JavaScript szükséges.</p></noscript>
+      </div>
+      <div class="h-card"><article class="dcard" id="dcard" aria-live="polite"></article></div>
+    </div>
+    <dl class="facts" id="facts"></dl>
+  </div>
+</header>
+
+<nav class="practice-rule" id="prule" aria-label="Szakterület szerinti szűrés"></nav>
+
+<nav class="tabbar" aria-label="Az oldal részei">
+  <div class="wrap">
+    <div class="tabs" id="tabs">
+      <a href="#radar">Radar</a>
+      <a href="#osszegzes">Önt érinti</a>
+      <a href="#valtozasok">Változások</a>
+      <a href="#naptar">Határidők</a>
+      <a href="#dossziek">Dossziék</a>
+      <a href="#elemzesek">Elemzések 2018–</a>
+      <a href="#eszkozok">Eszközök</a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <section class="panel" id="osszegzes">
+    <div class="sh">
+      <div class="eyebrow">Személyre szűrve</div>
+      <h2>Mit jelent ez Önnek?</h2>
+      <p class="sh-lead">Válasszon profilt a radar fölött. Az oldal minden része erre szűr: a radar, a változások listája, a határidők és a teendők.</p>
+    </div>
+    <div class="sum">
+      <div class="sumcard" id="sumcard"></div>
+      <aside class="feed" aria-labelledby="feedH">
+        <h3 id="feedH">Friss mozgások</h3>
+        <div id="feed"></div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="panel" id="valtozasok">
+    <div class="sh">
+      <div class="eyebrow">Jelzés-adatbázis</div>
+      <h2>Minden változás egy helyen</h2>
+      <p class="sh-lead">Egy kártya egy intézkedés. A cikkekből kinyert adatok: mi változik, milyen státuszban, kit érint, mikortól, és melyik BékésPartners-elemzés tárgyalja részletesen.</p>
+    </div>
+    <div class="fbar" id="fbar">
+      <div class="chips" id="stChips" role="group" aria-label="Státusz szerinti szűrés"></div>
+      <label class="vh" for="dosSel">Dosszié</label>
+      <select class="sel" id="dosSel"></select>
+      <label class="archtog"><input type="checkbox" id="archTog"> Archív jelzések (2018–2025) <small id="archTogN"></small></label>
+      <span class="fcount" id="fcount" aria-live="polite"></span>
+    </div>
+    <div id="list"></div>
+  </section>
+
+  <section class="panel" id="naptar">
+    <div class="sh">
+      <div class="eyebrow">Határidő-naptár</div>
+      <h2>Mikor mit kell tenni?</h2>
+      <p class="sh-lead">A mérföldkövek és a határidők egy idővonalon, a kiválasztott profilra szűrve. A szaggatott vonal a mai napot jelöli.</p>
+    </div>
+    <div class="tlwrap"><svg id="tl" viewBox="0 0 1000 222" role="img" aria-label="Idővonal 2026 májusától 2028 elejéig"></svg></div>
+    <ol class="cal" id="cal"></ol>
+    <p class="note">A 2027-es költségvetési intézkedések hatálybalépésének napja a törvényjavaslatokból derül ki; amint ismert, felkerül a naptárba.</p>
+  </section>
+
+  <section class="panel" id="dossziek">
+    <div class="sh">
+      <div class="eyebrow">Témakörök</div>
+      <h2>Dossziék</h2>
+      <p class="sh-lead">Egy dosszié egy témakör: a kulcsszámok, a BékésPartners-álláspont, a cikkek időrendi olvasási sorrendben és a hozzá tartozó eszközök. A felső színsáv a dosszié változásainak szakterületi megoszlása.</p>
+    </div>
+    <div class="dzs" id="dzs"></div>
+  </section>
+
+  <section class="panel" id="elemzesek">
+    <div class="sh">
+      <div class="eyebrow">Forrásanyag · 2018–2026</div>
+      <h2>Minden elemzés, 2018-tól</h2>
+      <p class="sh-lead">A BékésPartners összes Insights-anyaga. Az idővonal megmutatja, mely témákkal mikor foglalkoztak, és hol jelezték előre a későbbi változásokat; a nagyobb pont azt jelöli, hogy az anyagból konkrét szabályt nyertünk ki. Egy témára kattintva a lista arra szűr.</p>
+    </div>
+    <div class="swim-wrap"><svg id="swim" viewBox="0 0 1000 400" role="group" aria-label="Témák története 2018 és 2026 között"></svg></div>
+    <div class="arc-ctl"><div class="arc-years" id="arcYears" role="group" aria-label="Év"></div><div id="arcThF"></div></div>
+    <div class="arc-stat" id="arcStat"></div>
+    <div class="arc" id="arc"></div>
+    <p class="note">Az archív anyagokból kinyert jelzések a megjelenéskori állapotot mutatják. A „Változások” listában az „Archív jelzések” kapcsolóval jeleníthetők meg.</p>
+  </section>
+
+  <section class="panel" id="eszkozok">
+    <div class="sh">
+      <div class="eyebrow">Eszközök</div>
+      <h2>Mérje fel a saját helyzetét</h2>
+      <p class="sh-lead">Három eszköz a cikkek alapján. Az adatok csak az Ön böngészőjében számolódnak, sehová nem kerülnek.</p>
+    </div>
+
+    <div class="cv" id="cegertek">
+      <div class="cv-top">
+        <div class="eyebrow">Vagyonadó-tervezet · 1. melléklet</div>
+        <h3>Mennyit ér a cége a vagyonadó szerint?</h3>
+        <p>A tervezet a nem tőzsdei céget nem piaci áron, hanem képlettel értékeli: a saját tőke egyharmad, a tőkésített hozam kétharmad súllyal számít. A nyereséges, eszközszegény cégek így a könyv szerinti értékük többszörösén adózhatnak, az eszközgazdag, alacsony hozamúak alatta.</p>
+        <div class="cv-pre" id="cvPre" role="group" aria-label="Példák"></div>
+        <p class="cv-note" id="cvNote"></p>
+      </div>
+      <div class="cv-body">
+        <form class="cv-form" id="cvForm" autocomplete="off" novalidate>
+          <div class="cv-f"><label for="cvSt">Saját tőke</label><div class="nin"><input id="cvSt" type="text" inputmode="decimal"><span>M Ft</span></div><small>az utolsó lezárt beszámoló szerint</small></div>
+          <div class="cv-f"><label for="cvQ">Tulajdoni hányad</label><div class="nin"><input id="cvQ" type="text" inputmode="decimal"><span>%</span></div><small>50% alatt kisebbségi diszkont választható</small></div>
+          <fieldset class="cv-e"><legend>Adózott eredmény, az utolsó három lezárt év</legend>
+            <div class="cv-e3">
+              <div class="nin"><label class="vh" for="cvE1">1. év</label><input id="cvE1" type="text" inputmode="decimal" aria-label="Adózott eredmény, 1. év"><span>M Ft</span></div>
+              <div class="nin"><label class="vh" for="cvE2">2. év</label><input id="cvE2" type="text" inputmode="decimal" aria-label="Adózott eredmény, 2. év"><span>M Ft</span></div>
+              <div class="nin"><label class="vh" for="cvE3">3. év</label><input id="cvE3" type="text" inputmode="decimal" aria-label="Adózott eredmény, 3. év"><span>M Ft</span></div>
+            </div>
+            <small>Veszteséges évnél negatív szám is megadható; negatív átlagnál a hozamérték nulla.</small>
+          </fieldset>
+          <div class="cv-hid" id="cvHid">
+            <div class="cv-f"><label for="cvRt">Rejtett tartalék</label><div class="nin"><input id="cvRt" type="text" inputmode="decimal"><span>M Ft</span></div><small>befektetett ingatlan, részesedés, értékpapír: piaci − könyv szerinti érték</small></div>
+            <div class="cv-f"><label for="cvDt">Kapcsolódó halasztott adó</label><div class="nin"><input id="cvDt" type="text" inputmode="decimal"><span>M Ft</span></div><small>levonható a rejtett tartalékból</small></div>
+          </div>
+          <div class="cv-f"><label for="cvDiv">Fordulónap után jóváhagyott osztalék</label><div class="nin"><input id="cvDiv" type="text" inputmode="decimal"><span>M Ft</span></div><small>csökkenti a saját tőkét</small></div>
+          <div class="cv-chk">
+            <label><input type="checkbox" id="cvHold"> Holding: a részesedések az eszközök legalább 90%-át adják</label>
+            <label><input type="checkbox" id="cvNew"> Jogelőd nélkül alapított, induló cég (legfeljebb 3. üzleti év)</label>
+            <label id="cvDiscL"><input type="checkbox" id="cvDisc"> Kisebbségi diszkontot alkalmazok</label>
+          </div>
+        </form>
+        <div class="cv-res" id="cvRes" aria-live="polite"></div>
+      </div>
+      <div class="cv-foot">
+        <p>A 2026. október 6-án egyeztetésre bocsátott tervezet 1. melléklete szerint, a Vagyonadó-kalauzzal azonos számítási logikával. Nem tartalmazza a független cégértékelés és a tranzakciós ár lehetőségét. Tájékoztató számítás, nem adótanácsadás.</p>
+        <div><a class="tbtn" id="cvKalauz" href="#" target="_blank" rel="noopener noreferrer">Teljes számítás a Vagyonadó-kalauzban ↗</a><a class="tbtn solid" href="https://www.bekespartners.com/kapcsolat/" target="_blank" rel="noopener noreferrer">Cégértékelési próbaszámítás egyeztetése ↗</a></div>
+      </div>
+    </div>
+
+    <div class="tools">
+      <div class="sqnbox" id="onteszt">
+        <div class="sqn-head">
+          <img src="sqn-logo.png" alt="SQN Trust" width="272" height="252">
+          <div>
+            <div class="sqn-label">Önteszt · Bizalmi vagyonkezelés</div>
+            <h3 class="sqn-title">Mennyire áll készen a struktúrája a NAV-ellenőrzésre?</h3>
+          </div>
+        </div>
+        <p class="sqn-intro">Hat kérdés a BVK Audit hat vizsgálati területe szerint, a „Nem az a kérdés, jön-e a NAV” és „A kockázatos ötös” elemzés alapján. Az eredmény felkészültséget mutat, nem kockázati ítéletet: a NAV a struktúrát mindig egészében értékeli.</p>
+        <div class="st-grid">
+          <div id="stQs"></div>
+          <div class="st-res" id="stRes" aria-live="polite"></div>
+        </div>
+        <div class="todo" id="stTodo"></div>
+        <a class="sqn-cta" href="https://www.bekespartners.com/vagyonkezeles/" target="_blank" rel="noopener noreferrer">BVK Audit – a teljes felülvizsgálat</a>
+        <p class="fine">Indikatív önértékelés. Nem minősül jogi vagy adótanácsadásnak, és nem hoz létre megbízási jogviszonyt.</p>
+      </div>
+
+      <div class="calc" id="becslo">
+        <div class="eyebrow">Vagyonadó · tervezet</div>
+        <h3>Gyorsbecslő</h3>
+        <p class="c-in">Mennyi lehet az éves vagyonadó a tervezet kulcsaival? Egyszerűsített becslés egy összegű nettó vagyonra, az értékelési szabályok nélkül.</p>
+        <div class="cfld">
+          <label for="cNet">Nettó vagyon (példaérték)</label>
+          <div class="cinp"><input id="cNet" type="text" inputmode="decimal" value="6,5" aria-describedby="cNetU"><span id="cNetU">Mrd Ft</span></div>
+          <input class="crange" id="cRange" type="range" min="0" max="40" step="0.5" value="6.5" aria-label="Nettó vagyon csúszkával, milliárd forintban">
+        </div>
+        <label class="cchk"><input type="checkbox" id="cCouple"> Házaspár, a közös vagyon 50–50%-ban megosztva (két adóalany, két mentes sáv)</label>
+        <div class="cres" id="cRes" aria-live="polite"></div>
+        <a class="cta ghost" id="kalauzLink" href="#" target="_blank" rel="noopener noreferrer">Pontos számítás: Vagyonadó-kalauz</a>
+        <p class="fine">Az ingatlan, a cégrészesedés és a külföldi vagyon értéke a tervezet kötött szabályai szerint számít, ezért a tényleges adóalap ettől érdemben eltérhet.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="method" aria-label="Módszertan">
+    <div>
+      <h3>Hogyan készül a radar</h3>
+      <p>Minden pont egy intézkedés, amelyet egy BékésPartners-elemzés azonosított. A státusz négy fokozatú: <b>bejelentés</b> (politikai bejelentés, normaszöveg nélkül), <b>tervezet</b> (társadalmi egyeztetésen), <b>elfogadva</b> (a szabály biztos, a hatása még előttünk) és <b>hatályos</b> (hatályos szabály, hatósági állásfoglalás vagy bírói gyakorlat). A szakterületi szeletek mérete a változások számát követi. Ahol egy változásnak előtörténete van, az „Útja” sor időrendben mutatja, melyik elemzés mit jelzett előre.</p>
+    </div>
+    <div>
+      <h3>Fontos tudnivaló</h3>
+      <p>Prototípus. A radar a BékésPartners 2026-os elemzéseiből és híreiből épül; a 2018–2025-ös anyagok archív rétegként, a megjelenéskori állapottal szerepelnek. Állapot: 2026. október 21. A tartalom általános tájékoztatás, nem minősül jogi vagy adótanácsadásnak; a tervezetek és bejelentések szövege az elfogadásig változhat.</p>
+    </div>
+  </section>
+</main>
+
+<section class="band" id="ertesito" aria-labelledby="bandH">
+  <div class="wrap band-in">
+    <div>
+      <div class="eyebrow">Radar-értesítő</div>
+      <h2 id="bandH">Szóljunk, ha egy Önt érintő szabály továbblép?</h2>
+      <p>Amikor egy bejelentésből tervezet, egy tervezetből elfogadott törvény lesz, a profiljához tartozó változásokról rövid összefoglalót küldünk, a BékésPartners elemzésével.</p>
+    </div>
+    <form class="sform" id="sform" novalidate>
+      <div class="row">
+        <label class="vh" for="sEmail">E-mail-cím</label>
+        <input id="sEmail" type="email" placeholder="E-mail-cím" autocomplete="email">
+        <label class="vh" for="sProf">Profil</label>
+        <select id="sProf"></select>
+      </div>
+      <div class="row"><button type="submit">Feliratkozom</button></div>
+      <p class="smsg" id="smsg" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="ft-grid">
+      <div class="ft-brand">
+        <picture>
+          <source srcset="logo.png" media="(prefers-reduced-motion: reduce)">
+          <img class="ft-logo" src="logo-kibomlas.gif" alt="BékésPartners – Tax · Legal · Trust · Foundation" width="940" height="144" loading="lazy">
+        </picture>
+        <p>Független ügyvédek és közgazdászok: adó, jog, bizalmi vagyonkezelés és alapítvány – hazai és nemzetközi ügyfeleknek. A PrimeGlobal tagja.</p>
+      </div>
+      <div class="ft-prac">
+        <div class="ft-h">Szakterületeink</div>
+        <a class="p-tax" href="https://www.bekespartners.com/ado/" target="_blank" rel="noopener noreferrer">Adó</a>
+        <a class="p-legal" href="https://www.bekespartners.com/jog/" target="_blank" rel="noopener noreferrer">Jog</a>
+        <a class="p-trust" href="https://www.bekespartners.com/vagyonkezeles/" target="_blank" rel="noopener noreferrer">Bizalmi vagyonkezelés</a>
+        <a class="p-found" href="https://www.bekespartners.com/alapitvany/" target="_blank" rel="noopener noreferrer">Alapítvány</a>
+      </div>
+      <div class="ft-contact">
+        <div class="ft-h">Kapcsolat</div>
+        <p>BAH Center, 1124 Budapest, Fürj u. 2.<br>+36&nbsp;1&nbsp;646&nbsp;4646<br>office@bekespartners.com<br><a href="https://www.bekespartners.com/kapcsolat/" target="_blank" rel="noopener noreferrer">bekespartners.com/kapcsolat</a></p>
+      </div>
+    </div>
+    <div class="ft-bottom"><span>© 2026 BékésPartners · Minden jog fenntartva</span><span class="ft-motto">Built on trust</span></div>
+  </div>
+</footer>
+<script src="radar.js" defer></script>
+</body>
+</html>
