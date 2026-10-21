@@ -33,6 +33,8 @@ if re.search(r'\son[a-z]+\s*=', body): bad.append('inline eseménykezelő (on...
 if re.search(r'javascript:', body + js): bad.append('javascript: URL')
 if re.search(r'\bfetch\(|XMLHttpRequest|WebSocket|EventSource|sendBeacon', js): bad.append('hálózati hívás a szkriptben (connect-src none)')
 if re.search(r'''(src|href)=["']//|@import|url\(\s*["']?https?:''', body + css): bad.append('külső erőforrás a HTML/CSS-ben')
+pm = re.search(r"var PUBLIC_URL='(https://[^']*/)'", js)
+pub = pm.group(1) if pm else 'https://cr4j7sbkg2-afk.github.io/adoradar/'
 m = re.search(r"var KALAUZ_URL='([^']*)'", js)
 if not m or not m.group(1).startswith('https://'): bad.append('KALAUZ_URL nem abszolút https cím')
 if bad: sys.exit('HIBA: ' + '; '.join(bad))
@@ -42,6 +44,14 @@ head = ('<!DOCTYPE html>\n' + note + '\n<html lang="hu">\n<head>\n<meta charset=
   '<meta name="referrer" content="no-referrer">\n'
   '<meta name="description" content="' + desc + '">\n'
   '<meta name="robots" content="index,follow">\n<meta name="color-scheme" content="light">\n'
+  '<link rel="canonical" href="' + pub + '">\n'
+  '<meta property="og:type" content="website">\n<meta property="og:locale" content="hu_HU">\n'
+  '<meta property="og:title" content="Adóradar 2027 | BékésPartners">\n'
+  '<meta property="og:description" content="' + desc + '">\n'
+  '<meta property="og:url" content="' + pub + '">\n'
+  '<meta property="og:image" content="' + pub + 'og.jpg">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n'
+  '<meta property="og:image:alt" content="Adóradar 2027: a BékésPartners szabályozási radarja">\n'
+  '<meta name="twitter:card" content="summary_large_image">\n'
   '<title>Adóradar 2027 | BékésPartners</title>\n'
   '<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 32 32\'%3E%3Crect width=\'32\' height=\'32\' rx=\'6\' fill=\'%2313407D\'/%3E%3Ccircle cx=\'16\' cy=\'16\' r=\'9\' fill=\'none\' stroke=\'%23EBA720\' stroke-width=\'3\'/%3E%3Ccircle cx=\'16\' cy=\'16\' r=\'3\' fill=\'%23fff\'/%3E%3C/svg%3E">\n'
   '<link rel="stylesheet" href="radar.css">\n</head>\n<body>')

@@ -27,6 +27,14 @@ with sync_playwright() as p:
         if i['sw'] > i['vw']: hibak.append(f"{w}px: oldalirányú kilógás ({i['sw']} > {i['vw']})")
         if not i['kartyak'] or not i['pontok']: hibak.append(f'{w}px: üres lista vagy radar')
         if not i['font']: hibak.append(f'{w}px: nem töltött be a Montserrat')
+        # mélylink a részletpanelre, teendőlista, naptárexport
+        pg.goto(f'http://127.0.0.1:{port}/index.html?profil=bvk#v-w1'); pg.wait_for_timeout(1200)
+        j = pg.evaluate("""({panel: !document.getElementById('drawer').hidden, teendo: document.querySelectorAll('#td .td-i').length,
+            profil: document.getElementById('pchipV').textContent, ics: !!document.querySelector('[data-icsall]')})""")
+        print(w, j)
+        if not j['panel']: hibak.append(f'{w}px: a #v- mélylink nem nyitja meg a részletpanelt')
+        if not j['teendo']: hibak.append(f'{w}px: üres a teendőlista')
+        if not j['ics']: hibak.append(f'{w}px: hiányzik a naptárexport')
     b.close()
 srv.shutdown()
 print('\n'.join(hibak) or 'Nincs hiba.')
