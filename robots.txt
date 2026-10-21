@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /levelek/
+Sitemap: https://cr4j7sbkg2-afk.github.io/adoradar/sitemap.xml

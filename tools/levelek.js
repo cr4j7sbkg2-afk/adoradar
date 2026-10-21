@@ -14,6 +14,9 @@ const cut = js.indexOf('/* =====================================================
 if (cut < 0) { console.error('HIBA: nincs MOTOR-jelölő a radar.js-ben'); process.exit(1); }
 const D = new Function('window', 'document', js.slice(0, cut) + ';return {LV,PROF,STAMP,PUBLIC_URL};')({ addEventListener() {} }, {});
 const { LV, PROF, STAMP, PUBLIC_URL } = D;
+/* A hírcsatorna ablaka a mai napig tart (ADORADAR_MA felülírhatja), így a napi GitHub-futás a „30 napon belül” tételeket
+   frissítés nélkül is kiteszi. A levelek a STAMP-hoz kötődnek. */
+const MA = /^\d{4}-\d{2}-\d{2}$/.test(process.env.ADORADAR_MA || '') ? process.env.ADORADAR_MA : new Date().toISOString().slice(0, 10);
 const x = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' }[c]));
 const rfc = iso => new Date(iso + 'T08:00:00Z').toUTCString();
 const prof = k => PROF.find(p => p.k === k);
@@ -24,12 +27,13 @@ clean(FD, '.xml'); clean(FD, '.json'); clean(LD, '.html');
 
 /* RSS */
 function rss(k, alerts) {
-  const P = prof(k), items = LV.feed(k, alerts), self = PUBLIC_URL + 'hircsatorna/' + k + (alerts ? '-riasztas' : '') + '.xml';
+  const P = prof(k), items = LV.feed(k, alerts, MA), self = PUBLIC_URL + 'hircsatorna/' + k + (alerts ? '-riasztas' : '') + '.xml';
+  const last = items.length ? items.map(i => i.d).sort().pop() : STAMP;
   return '<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n<channel>\n' +
     `<title>${x('Adóradar · ' + (alerts ? 'riasztások · ' : '') + P.l)}</title>\n<link>${x(LV.url(k))}</link>\n` +
     `<atom:link href="${x(self)}" rel="self" type="application/rss+xml"/>\n` +
     `<description>${x('A BékésPartners Adóradar ' + (alerts ? 'státuszváltásai és új változásai' : 'mozgásai és közelgő határidői') + ' a(z) „' + P.l + '” profilra.')}</description>\n` +
-    `<language>hu</language>\n<lastBuildDate>${rfc(STAMP)}</lastBuildDate>\n` +
+    `<language>hu</language>\n<lastBuildDate>${rfc(last)}</lastBuildDate>\n` +
     items.map(i => `<item>\n<title>${x(i.title)}</title>\n<link>${x(i.url)}</link>\n<guid isPermaLink="false">${x(i.id)}</guid>\n<pubDate>${rfc(i.d)}</pubDate>\n` +
       i.tags.map(t => '<category>' + x(t) + '</category>').join('\n') + `\n<description><![CDATA[${i.html.replace(/]]>/g, ']]&gt;')}]]></description>\n</item>`).join('\n') +
     '\n</channel>\n</rss>\n';
@@ -37,7 +41,7 @@ function rss(k, alerts) {
 let nf = 0;
 PROF.forEach(p => { [false, true].forEach(a => { fs.writeFileSync(path.join(FD, p.k + (a ? '-riasztas' : '') + '.xml'), rss(p.k, a)); nf++; }); });
 const jf = { version: 'https://jsonfeed.org/version/1.1', title: 'Adóradar · BékésPartners', home_page_url: PUBLIC_URL, feed_url: PUBLIC_URL + 'hircsatorna/feed.json', language: 'hu',
-  items: LV.feed('all', false).map(i => ({ id: i.id, url: i.url, title: i.title, content_html: i.html, date_published: i.d + 'T08:00:00Z', tags: i.tags })) };
+  items: LV.feed('all', false, MA).map(i => ({ id: i.id, url: i.url, title: i.title, content_html: i.html, date_published: i.d + 'T08:00:00Z', tags: i.tags })) };
 fs.writeFileSync(path.join(FD, 'feed.json'), JSON.stringify(jf, null, 1)); nf++;
 
 /* levelek */
@@ -63,4 +67,5 @@ fs.writeFileSync(path.join(LD, 'index.html'), page('Adóradar – levélsablonok
   `<p style="font-size:15px;line-height:1.6">Automatikus riasztáshoz a küldőeszköz a profil hírcsatornáját figyelje: <code>${x(PUBLIC_URL)}hircsatorna/&lt;profil&gt;-riasztas.xml</code> (profilok: ${PROF.map(p => p.k).join(', ')}).</p>` +
   groups.map(g => `<h2 style="font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#5F6368;margin:28px 0 8px">${x(g)}</h2><ul style="margin:0;padding-left:20px;font-size:15px;line-height:1.7">` +
     list.filter(l => l.group === g).map(l => `<li><a href="${x(l.file)}" style="color:#006BB3">${x(l.label)}</a> · <span style="color:#5F6368">${x(l.subject)}</span></li>`).join('') + '</ul>').join('') + '</div>'));
-console.log(`OK hírcsatorna: ${nf} fájl · levelek: ${list.length} + index`);
+const nr = LV.feed('all', true, MA).length;
+console.log(`OK hírcsatorna: ${nf} fájl (${LV.feed('all', false, MA).length} tétel, ebből ${nr} riasztás, ablak ${MA}-ig) · levelek: ${list.length} + index`);

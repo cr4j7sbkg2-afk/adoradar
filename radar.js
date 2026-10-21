@@ -115,20 +115,20 @@ var SIG=[
   {id:'b11',dos:'budget',src:'budget',p:'tax',st:1,i:'teher',who:['nagy'],fig:'Energia · bánya · szesz',t:'Ágazati többletterhek',x:'Emelkedik a bányajáradék, többet fizetnek az energiacégek és a környezetterhelő vállalkozások, és nő az égetett szeszes italok adóterhelése.',w:W_B},
   {id:'b12',dos:'budget',src:'budget',p:'tax',st:1,i:'teher',who:['mag','bvk'],fig:'200 Mrd Ft / év',t:'A költségvetés már számol a vagyonadóval',x:'A 2027-es költségvetés évi 200 milliárd forint vagyonadó-bevétellel tervez. A bevétel betervezése azt jelzi, hogy a kormány a tervezet elfogadásával számol.',w:W_B},
 
-  {id:'w1',mv:[1,'2026-10-06'],dos:'wealth',src:'wealth',also:['adosz','szob','sajto'],p:'tax',st:2,i:'teher',who:['mag','bvk','kulf'],fig:'1% · 1,5%',t:'Vagyonadó 1 milliárd forint nettó vagyon felett',x:'Az 1 milliárd forintot meghaladó nettó vagyon után évi 1%, a 100 milliárd feletti adóalaprész után 1,5% az adó. A mentes sáv adóalanyonként jár. Önadózás, vagyonelemenkénti bevallással; az iratokat az elévülésig meg kell őrizni.',w:'Hatály: 2026.12.15. · értéknap: 2026.12.31. · bevallás: 2027.08.31. (tervezet)',tool:['Gyorsbecslő','#becslo'],
+  {id:'w1',fl:'Szűk átmenet: a tervezett hatály (2026.12.15.) és az első értéknap (2026.12.31.) között 16 nap van.',next:'Elfogadás és kihirdetés; a tervezet szerint a hatály 2026.12.15., az első értéknap 2026.12.31.',mv:[1,'2026-10-06'],dos:'wealth',src:'wealth',also:['adosz','szob','sajto'],p:'tax',st:2,i:'teher',who:['mag','bvk','kulf'],fig:'1% · 1,5%',t:'Vagyonadó 1 milliárd forint nettó vagyon felett',x:'Az 1 milliárd forintot meghaladó nettó vagyon után évi 1%, a 100 milliárd feletti adóalaprész után 1,5% az adó. A mentes sáv adóalanyonként jár. Önadózás, vagyonelemenkénti bevallással; az iratokat az elévülésig meg kell őrizni.',w:'Hatály: 2026.12.15. · értéknap: 2026.12.31. · bevallás: 2027.08.31. (tervezet)',tool:['Gyorsbecslő','#becslo'],
     hist:[['2026-03-06','BP: a TISZA-program 1%-os vagyonadót tartalmaz 1 Mrd Ft felett; részletes tervezet nincs'],['2026-05-14','A tervezet indokolása szerint ekkor vált köztudomásúvá'],['2026-08-01','BP-modell: legkorábban 2027.01.01-jei hatállyal számolt'],['2026-10-06','Tervezet: hatály 2026.12.15., első értéknap már 2026.12.31.'],['2026-10-19','Költségvetés: évi 200 Mrd Ft bevétellel tervez']]},
   {id:'w2',dos:'wealth',src:'wealth',p:'tax',st:2,i:'teendo',who:['mag','bvk','kulf'],fig:'4 lépcső',t:'Ingatlan: kötött értékelési sorrend, nem piaci érték',x:'A sorrend: 12 hónapon belüli független ügyleti érték, indexált szerzési érték (1–10 év), a NAV tömeges értékelési modellje, végül független szakértő. 500 millió forint felett csak igazságügyi szakértő értékelhet, legalább két módszerrel. Aki a törvényi értéket alkalmazza, azzal szemben a NAV nem állapíthat meg eltérő forgalmi értéket.',w:W_W},
   {id:'w3',dos:'wealth',src:'wealth',p:'tax',st:2,i:'teher',who:['kkv','mag'],fig:'⅓ tőke + ⅔ hozam',t:'Cégrészesedés: a „svájci képlet”',x:'Nem tőzsdei cégnél a saját tőke egyharmad, a három év átlagos adózott eredményéből 15%-os rátával számított hozamérték kétharmad súllyal számít. A nyereséges, eszközszegény cégek így magas értéket kapnak: egy 100 millió forint tőkéjű, évi 150 milliót kereső tanácsadó cég 700 millió forintot ér.',w:W_W,tool:['Cégérték-kalkulátor','#cegertek']},
   {id:'w4',dos:'wealth',src:'wealth',p:'tax',st:2,i:'teendo',who:['kkv','nagy'],fig:'500 M Ft tőke felett',t:'A cégeknek is lesz dolguk a tulajdonosok vagyonadójával',x:'500 millió forint saját tőke felett a társaság ingatlanjainak, részesedéseinek és értékpapírjainak rejtett tartalékával növelni kell a saját tőkét. Erről a cégnek könyvvizsgáló által felülvizsgált adatot kell adnia a tulajdonosoknak és a NAV-nak.',w:W_W,tool:['Cégérték-kalkulátor','#cegertek']},
   {id:'w5',dos:'wealth',src:'wealth',p:'legal',st:2,i:'konnyites',who:['mag'],fig:'2 × 1 Mrd Ft',t:'Házastársak: két mentes sáv, választható megosztás',x:'Az 1 milliárdos határ személyenként jár. A közös vagyon megosztásánál a házassági vagyonjogi szerződés az elsődleges; ennek hiányában a nyilvántartás szerinti tulajdonos vagy 50–50% választható, mindkét házastárs azonos nyilatkozatával. A kiskorú gyermek vagyona főszabály szerint a szülőnél számít.',w:W_W,tool:['Gyorsbecslő','#becslo']},
-  {id:'w6',dos:'wealth',src:'wealth',p:'legal',st:2,i:'teendo',who:['mag','kkv'],fig:'Csak okirattal',t:'Csak okiratba foglalt tartozás vonható le',x:'Közokiratba vagy teljes bizonyító erejű magánokiratba foglalt hitel és kölcsön csökkenti az adóalapot. A szóbeli vagy egyszerű magánokirati tagi kölcsön nem, ezért ennek rendezése az értéknap előtt időszerű.',w:'Az értéknap, 2026.12.31. előtt (tervezet)'},
+  {id:'w6',fl:'Értéknap előtti teendő: a nem okiratba foglalt tartozás az értéknapon már nem vonható le.',dos:'wealth',src:'wealth',p:'legal',st:2,i:'teendo',who:['mag','kkv'],fig:'Csak okirattal',t:'Csak okiratba foglalt tartozás vonható le',x:'Közokiratba vagy teljes bizonyító erejű magánokiratba foglalt hitel és kölcsön csökkenti az adóalapot. A szóbeli vagy egyszerű magánokirati tagi kölcsön nem, ezért ennek rendezése az értéknap előtt időszerű.',w:'Az értéknap, 2026.12.31. előtt (tervezet)'},
   {id:'w7',dos:'wealth',src:'wealth',also:['szob'],p:'tax',st:2,i:'teher',who:['kulf','mag'],fig:'36 / 84 egyezmény',t:'Külföldi vagyon: 36 egyezmény nem véd',x:'A magyar állampolgár főszabály szerint a világvagyonára adózik, kivéve, ha legalább 10 éve külföldön él. A 84 hatályos magyar egyezményből 48 tartalmaz vagyoncikket, 36 nem (köztük a brit, a dán, az ír, a máltai, a portugál és az indiai), így az ottani vagyon egyezményi védelem nélkül adózik. A külföldi általános vagyonadó, például a svájci kantoni vagy a spanyol, nem számítható be.',w:W_W,
     hist:[['2022-07-13','Az USA felmondja a magyar–amerikai egyezményt, 2024.01.01-jei megszűnéssel'],['2026-08-01','BP: nyitott, hogy állampolgárság vagy tartózkodás alapján adóztatnak; a brit egyezmény vagyonra nem terjed ki'],['2026-10-06','Tervezet: állampolgárság alapján, kivéve 10 év külföldi életvitel']]},
   {id:'w8',dos:'wealth',src:'wealth',p:'tax',st:2,i:'teher',who:['kulf'],fig:'75%-os szabály',t:'Külföldi illetőségűek: magyar ingatlan és részesedés',x:'A külföldi illetőségű magánszemély a magyar ingatlana és közvetlen magyar cégrészesedése után adózik. A köztes külföldi társaságon át tartott magyar cég nem adózik, kivéve, ha a társaság mérlegének több mint 75%-a magyar ingatlan.',w:W_W},
   {id:'w9',dos:'wealth',src:'wealth',p:'trust',st:2,i:'teher',who:['bvk'],fig:'Közös 1 Mrd Ft',t:'A kezelt vagyon önálló adóalany, közös határral',x:'A bizalmi vagyonkezelés saját 1 milliárdos mentes sávot kap, de az azonos vagy hozzátartozói viszonyban álló vagyonrendelők struktúrái együtt egyetlen határon osztoznak. Az adót a vagyonkezelő fizeti a kezelt vagyonból, ezért a likviditási és kiadási szabályokat felül kell vizsgálni.',w:W_W},
   {id:'w10',dos:'wealth',src:'wealth',p:'found',st:2,i:'teher',who:['bvk','kulf'],fig:'Vélelmezett irányítás',t:'Magánalapítvány és külföldi trust: vélelmezett magyar irányítás',x:'A magánalapítvány és a hasonló rendeltetésű külföldi struktúra (trust, Stiftung, Anstalt) önálló adóalany. A külföldi struktúra a teljes vagyonára adózik, ha az irányítása Magyarországon van; ezt a törvény vélelmezi, ha bármely vagyonrendelő vagy alapító belföldi illetőségű, vagy ha belföldi kedvezményezett tényleges befolyást gyakorol a döntésekre. A külföldi trustee ülésjegyzőkönyve önmagában nem elég az ellenkezőjéhez.',w:W_W},
   {id:'w11',dos:'wealth',src:'wealth',p:'trust',st:2,i:'teendo',who:['bvk','kulf'],fig:'2027.01.14.',t:'Bejelentkezés a NAV-nál',x:'A már működő belföldi struktúráknak és a magyar adóköteles vagyonnal rendelkező külföldi konstrukcióknak be kell jelentkezniük a NAV-nál.',w:'2027.01.14-ig (tervezet)'},
-  {id:'w12',dos:'wealth',src:'wealth',p:'legal',st:2,i:'teendo',who:['mag','bvk'],fig:'2026.05.14.',t:'Visszamenőleges vizsgálat a bejelentéstől',x:'Az indokolás szerint a NAV 2026. május 14-től vizsgálja a rendeltetésszerű joggyakorlást. Az azóta tett ajándékozás, átstrukturálás vagy vagyonrendelés nem válik érvénytelenné, de a valós gazdasági vagy családi indokot dokumentálni kell. A törvény kifejezett választási lehetőségeihez nem kell külön indoklás.',w:'Visszamenőleg 2026.05.14-től (indokolás)'},
+  {id:'w12',fl:'Visszaható elem: az indokolás szerint a 2026.05.14. utáni lépéseket is vizsgálja a NAV.',dos:'wealth',src:'wealth',p:'legal',st:2,i:'teendo',who:['mag','bvk'],fig:'2026.05.14.',t:'Visszamenőleges vizsgálat a bejelentéstől',x:'Az indokolás szerint a NAV 2026. május 14-től vizsgálja a rendeltetésszerű joggyakorlást. Az azóta tett ajándékozás, átstrukturálás vagy vagyonrendelés nem válik érvénytelenné, de a valós gazdasági vagy családi indokot dokumentálni kell. A törvény kifejezett választási lehetőségeihez nem kell külön indoklás.',w:'Visszamenőleg 2026.05.14-től (indokolás)'},
   {id:'w13',dos:'wealth',src:'adosz',also:['wealth'],p:'legal',st:4,i:'semleges',who:['mag','bvk'],fig:'AB-gyakorlat',t:'Alkotmányos korlátok: értékelési jogorvoslat, konfiskáló adó tilalma',x:'Az Alkotmánybíróság korábbi döntései szerint az adózónak meg kell tudnia dönteni a hatósági értékelést, az értékelési különbözet önmagában nem alapozhat meg bírságot, és alkotmányellenes az az adó, amely észszerű időn belül felemészti a vagyontárgy értékét. A tervezet ehhez igazodó garanciát tartalmaz: a törvényi értékkel szemben a NAV nem állapíthat meg eltérő forgalmi értéket.',w:'Hatályos alkotmánybírósági gyakorlat',
     hist:[['2026-03-06','BP: objektív, előre rögzített értékelési módszert javasolt a jogalkotónak'],['2026-10-06','Tervezet: a törvényi értéket alkalmazóval szemben nincs eltérő NAV-érték; jóhiszemű szakértői értéknél nincs bírság']]},
 
@@ -139,18 +139,18 @@ var SIG=[
   {id:'k3',dos:'kata',src:'kata',p:'tax',st:2,i:'teher',who:['ev'],fig:'15%',t:'Kiegészítő adó a céges bevételekre',x:'Ha a kifizetőtől származó bevétel 15%-a meghaladja az éves tételes adót, a különbözetet kiegészítő adóként kell megfizetni. Főfoglalkozásban ez évi 8 millió forint feletti céges bevételnél 15%-os terhet jelent, az adóévet követő február 25-i határidővel; a nyilvántartásban a kifizetői bevételeket külön kell jelölni.',w:W_K},
   {id:'k4',dos:'kata',src:'kata',p:'legal',st:2,i:'teher',who:['ev'],fig:'Szűkebb kör',t:'Ügyvédek és más szabadfoglalkozásúak kimaradnak',x:'Az új szabály csak az egyéni vállalkozói törvény szerinti egyéni vállalkozókra vonatkozik, nem az szja-törvény tágabb körére. A BékésPartners elemzése szerint a korábban katás ügyvédek így nem térhetnek vissza; az elemzés logikája szerint ugyanez vonatkozhat a közjegyzőkre, az állatorvosokra és a szabadalmi ügyvivőkre is.',w:W_K},
 
-  {id:'v1',dos:'bvk',src:'nav',also:['kiket','marad'],p:'trust',st:3,i:'teendo',who:['bvk'],fig:'2023.09.12. előtt',t:'Kötelező NAV-ellenőrzés a régi struktúráknál',x:'A NAV ellenőrzi a 2023. szeptember 12. előtt nyilvántartásba vett vagyonkezelők kezelt vagyonát, az első hullámban az eseti, nem üzletszerű vagyonkezelőket. A már megszűnt struktúrákat is: ilyenkor a vagyonrendelővel vagy alapítóval szemben. A megszüntetés tehát nem kiút.',w:'Elfogadva 2026 nyarán; az első hullám várhatóan jogkövetési vizsgálat',tool:['BVK-önteszt','#onteszt'],
+  {id:'v1',next:'Az első ellenőrzési hullám: jogkövetési vizsgálat az eseti, nem üzletszerű vagyonkezelőknél.',dos:'bvk',src:'nav',also:['kiket','marad'],p:'trust',st:3,i:'teendo',who:['bvk'],fig:'2023.09.12. előtt',t:'Kötelező NAV-ellenőrzés a régi struktúráknál',x:'A NAV ellenőrzi a 2023. szeptember 12. előtt nyilvántartásba vett vagyonkezelők kezelt vagyonát, az első hullámban az eseti, nem üzletszerű vagyonkezelőket. A már megszűnt struktúrákat is: ilyenkor a vagyonrendelővel vagy alapítóval szemben. A megszüntetés tehát nem kiút.',w:'Elfogadva 2026 nyarán; az első hullám várhatóan jogkövetési vizsgálat',tool:['BVK-önteszt','#onteszt'],
     hist:[['2025-03-19','A NAV 2025-ös ellenőrzési terve már kiemelten kezeli a BVK-kat'],['2026-07-17','T/387: kötelező ellenőrzés a 2023.09.12. előtti struktúráknál'],['2026-07-29','BP: az első hullám az eseti vagyonkezelőket érinti'],['2028-01-01','Minden kezelt vagyon ellenőrizhető']]},
   {id:'v2',dos:'bvk',src:'nav',p:'found',st:3,i:'teendo',who:['bvk'],fig:'Alapítványok',t:'A magánalapítványok is ellenőrzés alá kerülnek',x:'A törvényben előírt ellenőrzési kötelezettség a bizalmi vagyonkezelések mellett a magánalapítványokra is kiterjed.',w:'Elfogadva 2026 nyarán'},
-  {id:'v3',dos:'bvk',src:'nav',also:['marad'],p:'trust',st:3,i:'teendo',who:['bvk'],fig:'2028',t:'2028-tól minden kezelt vagyon sorra kerül',x:'2028. január 1-jétől, az elévülési időn belül, valamennyi bizalmi vagyonkezelés és magánalapítvány ellenőrizhető.',w:'2028. január 1-jétől'},
+  {id:'v3',next:'Hatálybalépés 2028.01.01.',dos:'bvk',src:'nav',also:['marad'],p:'trust',st:3,i:'teendo',who:['bvk'],fig:'2028',t:'2028-tól minden kezelt vagyon sorra kerül',x:'2028. január 1-jétől, az elévülési időn belül, valamennyi bizalmi vagyonkezelés és magánalapítvány ellenőrizhető.',w:'2028. január 1-jétől'},
   {id:'v4',mv:[2,'2026-08-31'],dos:'bvk',src:'marad',also:['kiket','szigor','furdo','nav'],p:'trust',st:4,i:'teher',who:['bvk'],fig:'Formaazonosság',t:'Új szja-szabályok a kiadásokra: csak az azonos vagyonelem adómentes',x:'Augusztus 31-től a kiadás akkor adómentes, ha ugyanaz a vagyonelem kerül vissza, változatlan formában; ilyenkor várakozási idő sincs, és a kedvezményezett a vagyonrendelő eredeti szerzési értékét viszi tovább. A felértékelésből származó adóelőny az új bevitelekre megszűnt. A vagyon bevitele továbbra sem adóköteles, a társasági adó- és illetékmentesség marad.',w:'Hatályos 2026.08.31-től',
     hist:[['2023-06-06','Benyújtott javaslat: a vagyonrendelés értékesítésnek minősül, a felértékelés szja-köteles'],['2023-09-12','Hatályba lép: megszűnik a BVK-ba adott vagyon adómentes átértékelése'],['2023-12-30','Enyhítés: öt év kiadásmentesség után az átértékelés adóelőnye realizálható'],['2025-03-19','A NAV 2025-ös ellenőrzési terve kiemelt célpontként nevezi meg a BVK-kat'],['2026-05-14','Kormányhatározat (1147/2026.) a BVK-adókedvezmények megszüntetéséről'],['2026-05-20','BP-javaslat: a jogintézmény maradjon, a szigorítás a visszaélést célozza'],['2026-07-17','A T/387. törvényjavaslat benyújtása'],['2026-08-31','Hatályba lépett']]},
   {id:'v5',dos:'bvk',src:'marad',also:['nav'],p:'trust',st:4,i:'teher',who:['bvk'],fig:'1,18 × költség',t:'Adóköteles lehet a kezelt ingatlan vagy autó ingyenes használata',x:'A kezelt vagyonhoz tartozó ingatlan vagy gépjármű ingyenes használata az egyenes ági rokonoknak, a házastársnak és a testvéreknek mentes. Mindenki más (élettárs, unokatestvér, barát) esetén egyes meghatározott juttatásként adózik: 15% szja és 13% szocho a kapcsolódó költségek 1,18-szorosa után.',w:'Hatályos 2026.08.31-től'},
   {id:'v6',dos:'bvk',src:'nav',also:['kiket','five'],p:'trust',st:3,i:'teendo',who:['bvk'],fig:'4 szempontcsoport',t:'Ezt nézi a NAV: a törvényben nevesített szempontok',x:'A vagyonrendelés körülményei (kapcsolatfelvétel, szövegtervezetek, tanácsadó és ellenjegyző ügyvéd szerepe), a szerződések tartalma (köztük az adóelőnyhöz kötött kikötések), a jogviszony időtartama és a vagyonkezelő önállósága, valamint a kiadások időzítése és kiváltó oka. A felsorolás nem kimerítő.',w:'Elfogadva; a NAV más körülményt is értékelhet',tool:['BVK-önteszt','#onteszt']},
   {id:'v7',dos:'bvk',src:'nav',p:'legal',st:4,i:'konnyites',who:['bvk'],fig:'Önellenőrzési ablak',t:'Jogkövetési vizsgálat alatt még lehet önellenőrizni',x:'Az első hullám várhatóan jogkövetési vizsgálat lesz, amely nem zár le időszakot: alatta és utána is van mód önellenőrzésre. A lehetőség akkor szűnik meg, ha a NAV az adott időszakra adóellenőrzést rendel el. A vizsgálatban tett nyilatkozatok később is felhasználhatók.',w:'Hatályos eljárási szabály'},
   {id:'v8',dos:'bvk',src:'marad',p:'trust',st:4,i:'teher',who:['bvk'],fig:'15% + 13%',t:'A hozam kiadása osztalékként adózik',x:'A kiadott hozam (kamat, árfolyamnyereség, osztalék) osztalékként adózik: 15% szja és 13% szocho, ez utóbbi az éves felső határig. Ha a kiadás más formában történik, például pénz a bevitt eszköz helyett, előbb a hozamot, majd a beviteli felértékelést terheli; csak a maradék, nagyjából az eredeti szerzési érték adómentes.',w:'Hatályos 2026.08.31-től'},
-  {id:'v9',dos:'bvk',src:'marad',also:['kiket'],p:'trust',st:4,i:'konnyites',who:['bvk'],fig:'Időkorlát nélkül',t:'Régi struktúrák: a bevitt vagyon kiadása továbbra is adómentes',x:'A 2023. szeptember 12. előtt létrehozott struktúráknál a bevitt vagyon (a hozam nélkül) időkorlát nélkül adómentesen adható ki. Cserébe ezek kerülnek elsőként NAV-ellenőrzés alá.',w:'Átmeneti szabály, hatályos'},
-  {id:'v10',dos:'bvk',src:'marad',also:['kiket'],p:'trust',st:4,i:'teendo',who:['bvk'],fig:'5 év',t:'2023.09.12. és 2026.08.30. között bevitt, felértékelt vagyon: ötéves várakozás',x:'Ezeknél az eszközöknél az adómentes kiadás az ötéves várakozási idő után lehetséges. Érdemes eszközönkénti listát készíteni arról, mikor jár le az öt év, és ehhez igazítani a tervezett kiadásokat.',w:'Átmeneti szabály, hatályos'},
+  {id:'v9',fl:'Átmeneti szabály: csak a 2023.09.12. előtt létrehozott struktúrákra.',dos:'bvk',src:'marad',also:['kiket'],p:'trust',st:4,i:'konnyites',who:['bvk'],fig:'Időkorlát nélkül',t:'Régi struktúrák: a bevitt vagyon kiadása továbbra is adómentes',x:'A 2023. szeptember 12. előtt létrehozott struktúráknál a bevitt vagyon (a hozam nélkül) időkorlát nélkül adómentesen adható ki. Cserébe ezek kerülnek elsőként NAV-ellenőrzés alá.',w:'Átmeneti szabály, hatályos'},
+  {id:'v10',fl:'Átmeneti szabály: a felértékelt vagyon ötéves várakozási idő után adható ki adómentesen.',dos:'bvk',src:'marad',also:['kiket'],p:'trust',st:4,i:'teendo',who:['bvk'],fig:'5 év',t:'2023.09.12. és 2026.08.30. között bevitt, felértékelt vagyon: ötéves várakozás',x:'Ezeknél az eszközöknél az adómentes kiadás az ötéves várakozási idő után lehetséges. Érdemes eszközönkénti listát készíteni arról, mikor jár le az öt év, és ehhez igazítani a tervezett kiadásokat.',w:'Átmeneti szabály, hatályos'},
   {id:'v11',dos:'bvk',src:'marad',p:'trust',st:4,i:'konnyites',who:['bvk'],fig:'Piaci érték',t:'A vagyonrendelő halála után a kiadás adómentes',x:'A vagyonrendelő halálát követő kiadás adómentes, és a kedvezményezett szerzési értéke az akkori piaci érték lesz.',w:'Hatályos 2026.08.31-től'},
   {id:'v12',dos:'bvk',src:'marad',p:'trust',st:4,i:'teendo',who:['bvk'],fig:'Évente',t:'Új struktúráknál nyilvántartás és éves NAV-adatszolgáltatás',x:'Az augusztus 31. után létrehozott struktúráknál és új vagyonrendeléseknél pontosan nyilván kell tartani a szerzési értékeket, vezetni kell a törvényi nyilvántartásokat, és évente adatot kell szolgáltatni a NAV-nak.',w:'Hatályos 2026.08.31-től'},
   {id:'v13',dos:'bvk',src:'szigor',p:'trust',st:4,i:'teher',who:['bvk'],fig:'50–200%',t:'Az átminősítés ára: adóbírság és késedelmi pótlék',x:'Ha a NAV egy régi struktúrát átminősít, a rejtett tartalékon adóhiány keletkezik. Az adóbírság főszabály szerint 50%, bevételeltitkolás vagy iratmegsemmisítés esetén 200%; ehhez jön a jegybanki alapkamat + 5 százalékpontos késedelmi pótlék az eredeti esedékességtől. Az adó a bevallás évét követő év első napjától 5 évig állapítható meg.',w:'Hatályos szabályok (Art.)'},
@@ -163,7 +163,7 @@ var SIG=[
 
   {id:'a1',dos:'corp',src:'lakas',also:['budget'],p:'tax',st:4,i:'teendo',who:['kkv','nagy','mag'],fig:'5% vagy 27%',t:'Lakásáfa: tárolók, garázsok, beállók a NAV állásfoglalása szerint',x:'A tároló akkor kaphat 5%-ot, ha funkcionálisan a lakást szolgálja, és a lakással egy ügyletben adják el; az egységet elsősorban a vevő szándéka dönti el. A hasznos alapterületbe csak a legalább 190 cm belmagasságú tároló számít (150 m² lakásnál, 300 m² családi háznál a határ). A zártan körülhatárolt garázs mindig 27%-os, a részben zárt beálló a lakás kulcsát követi.',w:'NAV-állásfoglalás; a kedvezményes kulcs jelenlegi formája 2026.12.31-ig, a költségvetési bejelentés szerint marad',
     hist:[['2026-05-01','NAV-állásfoglalás a tárolókról, garázsokról és beállókról'],['2026-10-19','Költségvetési bejelentés: az 5%-os lakásáfa marad']]},
-  {id:'t1',dos:'corp',src:'forint',p:'tax',st:4,i:'teendo',who:['kkv','nagy'],fig:'Jogvesztő',t:'Társasági adó euróban vagy dollárban: bejelentés az év végéig',x:'A társasági adó euróban vagy dollárban is fizethető, ha a cég az adóévet megelőző év utolsó napjáig bejelenti; a határidő jogvesztő. Év végén a nyitott devizás követeléseket és kötelezettségeket át kell értékelni, az áfát forintban kell kiszámítani, a HIPA-alapot az árfolyam-különbözet jellemzően nem érinti.',w:'A 2027-es adóévre: 2026.12.31-ig'},
+  {id:'t1',fl:'Jogvesztő határidő: a bejelentés 2026.12.31-ig tehető meg a 2027-es adóévre.',dos:'corp',src:'forint',p:'tax',st:4,i:'teendo',who:['kkv','nagy'],fig:'Jogvesztő',t:'Társasági adó euróban vagy dollárban: bejelentés az év végéig',x:'A társasági adó euróban vagy dollárban is fizethető, ha a cég az adóévet megelőző év utolsó napjáig bejelenti; a határidő jogvesztő. Év végén a nyitott devizás követeléseket és kötelezettségeket át kell értékelni, az áfát forintban kell kiszámítani, a HIPA-alapot az árfolyam-különbözet jellemzően nem érinti.',w:'A 2027-es adóévre: 2026.12.31-ig'},
   {id:'t2',dos:'corp',src:'kovet',p:'tax',st:4,i:'teendo',who:['kkv','nagy'],fig:'365 nap · 20%',t:'Követelések értékvesztése: tao- és KIVA-kezelés',x:'Az elszámolt értékvesztés a tao-alapot növeli. A lejárat után 365 nappal még meg nem térült, de nem elévült követelés évente legfeljebb 20%-a levonható. KIVA-ban az értékvesztés és visszaírása főszabály szerint nem változtatja az adóalapot; kapcsolt félnél külön szabályok érvényesek.',w:'Hatályos; évzáráskor alkalmazandó'},
   {id:'e1',dos:'gmt',src:'dac9',p:'tax',st:3,i:'teendo',who:['nagy','kulf'],fig:'DAC9',t:'DAC9: uniós adatcsere a globális minimumadóhoz',x:'Az EU 2025. április 14-én kihirdette a DAC9-irányelvet, amely a globális minimumadóról szóló irányelv gyakorlati végrehajtását az automatikus információcserével támogatja. A minimumadó hatálya alá tartozó csoportokat érinti.',w:'Kihirdetve 2025.04.14.; a részletes határidőket a teljes elemzés tárgyalja',
     hist:[['2021-07-06','BP: a magyar effektív adókulcs 4,5–5,5% körül lehet, a kedvezmények hatása csoportszinten elveszhet'],['2021-12-03','Tervezet: 15%, 750 M EUR küszöb, 2023-as indulás; BP-becslés: 2000–3000 érintett magyar cég'],['2022-04-08','Lengyelország blokkolja az uniós irányelvet'],['2022-07-13','Az USA felmondja a magyar–amerikai egyezményt; a BP szerint vélhetően a magyar vétóra válaszul'],['2023-11-30','Elfogadják a 2023. évi LXXXIV. törvényt'],['2024-01-01','Hatályba lép: belföldi kiegészítő adó a 15% alatti csoporttagoknál'],['2025-04-14','A DAC9-irányelv kihirdetése']]},
@@ -262,6 +262,62 @@ var STQ=[
   {a:'A vagyon összetétele és értékelése',q:'A berendelési értéket független szakértő értékelése támasztja alá, amely bemutatja a módszert és a feltételezéseket, és rögzíti az eltérés okát más ismert értékektől (könyv szerinti, banki, korábbi vételár)?',fix:'A berendelési érték a struktúra adózási szempontból legérzékenyebb adata. A kérdés nem az, hogy magas-e, hanem hogy levezethető-e; az eltérés okát az értékeléssel egy időben érdemes rögzíteni.',ex:2},
   {a:'Napi működés és dokumentáció',q:'Minden kiadásnál írásban rögzített, mi váltotta ki (kedvezményezetti kérelem, vagyonkezelői határozat), és a pénzmozgások a szerződéses rendet követik?',fix:'Ha az egyetlen indok az, hogy letelt az öt év, az önmagában árulkodó. Mostantól minden kiadásnál rögzítse a kiváltó okot: néhány mondat, és később sokat érhet.',ex:0},
   {a:'Számvitel és adóadminisztráció',q:'A kezelt vagyon elkülönül a vagyonrendelő magánvagyonától: nincsenek dokumentálatlan kivétek, és a struktúrából nyújtott kölcsönök törlesztése rendezett?',fix:'A szerződés és a bankszámlaforgalom összevetése a NAV leggyorsabb vizsgálata. Ha hibás kifizetés történt, az önellenőrzés a jogkövetési vizsgálat alatt még lehetséges.',ex:1}
+];
+
+/* Tanácsadói réteg.
+   CHK: az utolsó teljes átnézés napja (tételenként SIG.chk írja felül); CHK_WARN nap után „ellenőrzendő” jelzés.
+   NEXT: a következő jogalkotási lépés státuszonként (tételenként SIG.next írja felül).
+   SIG.fl: rövid figyelmeztetés (szűk átmenet, visszaható elem, átmeneti szabály, jogvesztő határidő) – csak ahol a cikk kimondja.
+   REL: összefüggő változások; a motor mindkét irányban mutatja. Csak ott, ahol a cikkek maguk kötik össze a két tételt. */
+var CHK='2026-10-21',CHK_WARN=90;
+var NEXT={1:'Törvényjavaslat benyújtása: a pontos szabály a normaszövegből derül ki.',2:'Elfogadás az Országgyűlésben, majd kihirdetés; a szöveg addig változhat.',3:'Hatálybalépés; a részletszabályok (rendelet, NAV-tájékoztató) még jöhetnek.',4:''};
+var REL={w1:['b12','w9','w13','w3','w12'],w2:['w13'],w3:['w4'],w6:['w12'],w7:['w8','d1','d2'],w9:['v12'],w10:['v2'],w11:['v12'],
+  v1:['v6','v7','v9'],v6:['v13'],v4:['v8','v9','v10'],v9:['v11'],j1:['j2','j4'],j2:['v11'],k1:['k2','k4'],k2:['k3'],b8:['a1'],t1:['t2']};
+/* Szószedet: a kártyákon és a részletpanelen az első előfordulás kattintható. Általános fogalmak, nem a cikkek állításai. */
+var GLOSS={
+ 'BVK':'Bizalmi vagyonkezelés: a vagyonrendelő a vagyonát egy vagyonkezelőre bízza, aki azt a kedvezményezettek javára kezeli.',
+ 'bizalmi vagyonkezelés':'A vagyonrendelő a vagyonát egy vagyonkezelőre bízza, aki azt a kedvezményezettek javára kezeli (rövidítve: BVK).',
+ 'kötelesrész':'A legközelebbi hozzátartozót (leszármazó, házastárs, szülő) végrendelet vagy ajándékozás ellenére is megillető minimum: a törvényes örökrész egyharmada.',
+ 'értéknap':'Az a nap, amelyre a vagyon értékét meg kell állapítani az adó alapjához.',
+ 'önadózás':'Az adózó maga állapítja meg, vallja be és fizeti meg az adót; a hatóság utólag ellenőriz.',
+ 'jogkövetési vizsgálat':'A NAV enyhébb ellenőrzési formája: a nyilvántartásokat és a kötelezettségek teljesítését nézi, adókülönbözetet nem állapít meg, és közben még lehet önellenőrizni.',
+ 'KATA':'Kisadózó vállalkozók tételes adója: havi fix összegű adó, amely több adót és járulékot kivált.',
+ 'KIVA':'Kisvállalati adó: a társasági adó és a szociális hozzájárulási adó helyett választható, a személyi jellegű kifizetésekre és a tőkeműveletekre épülő adó.',
+ 'globális minimumadó':'OECD/EU-szabály: a legalább 750 millió euró árbevételű csoportoknál országonként 15% tényleges adóterhet ír elő, kiegészítő adóval.',
+ 'DAC9':'Az EU adóügyi együttműködési irányelvének kilencedik módosítása: a globális minimumadóhoz kapcsolódó adatcsere a tagállamok között.',
+ 'EKHO':'Egyszerűsített közteherviselési hozzájárulás: egyes művészeti, sport- és médiatevékenységeknél választható, az szja-t és a járulékokat kiváltó kedvezményes adózás.',
+ 'telephely':'Adójogi értelemben az az állandó üzleti hely vagy tartós tevékenység, amely alapján egy másik állam is adóztathat.',
+ 'illetőség':'Az az állam, ahol a személy adóügyi szempontból „otthon van”, és amely a világjövedelmét adóztathatja; ha kettő is igényt tart rá, az egyezmény dönt.',
+ 'vagyonrendelő':'A bizalmi vagyonkezelés létrehozója, aki a vagyont a vagyonkezelőre bízza.',
+ 'kedvezményezett':'Akinek a javára a kezelt vagyont vagy annak hozamát ki kell adni.',
+ 'magánalapítvány':'Az alapító saját, családi vagy kedvezményezetti célra létrehozott alapítványa; a vagyonkezelő alapítvány egyik formája.',
+ 'trust':'Az angolszász jog vagyonkezelési formája, a bizalmi vagyonkezelés külföldi megfelelője.',
+ 'társadalmi egyeztetés':'A jogszabálytervezet nyilvános véleményezése a benyújtás előtt; a szöveg még változhat.',
+ 'kihirdetés':'A törvény megjelenése a Magyar Közlönyben; ettől számít a hatálybalépés.',
+ 'holding':'Olyan társaság, amelynek eszközeit túlnyomórészt más cégekben lévő részesedések adják.',
+ 'rejtett tartalék':'Az eszköz piaci és könyv szerinti értékének különbsége, amely a mérlegben nem látszik.',
+ 'árrésstop':'Hatósági korlát egyes élelmiszerek kiskereskedelmi árrésére.',
+ 'sport-tao':'A társasági adóból a látvány-csapatsportok támogatására adható kedvezmény.',
+ 'innovációs járulék':'A közép- és nagyvállalatok által a helyi iparűzési adó alapja után fizetett járulék.',
+ 'Art.':'Az adózás rendjéről szóló törvény: az adóeljárás, a bírságok és a pótlékok általános szabályai.',
+ 'HIPA':'Helyi iparűzési adó.',
+ 'tao':'Társasági adó.',
+ 'szja':'Személyi jövedelemadó.',
+ 'szochó':'Szociális hozzájárulási adó: a kifizető által a jövedelem után fizetett adó.',
+ 'forrásadó':'A kifizetés helyén, a jövedelemből levont adó.',
+ 'moratórium':'Fizetési haladék: a csődeljárás alatt a hitelezők nem érvényesíthetik a követeléseiket.',
+ 'vagyonfelügyelő':'A csődeljárásban a bíróság által kirendelt személy, aki az adós gazdálkodását felügyeli és a hitelezői igényeket nyilvántartja.',
+ 'konfiskáló adó':'Olyan mértékű adó, amely a vagyont elvonja; az Alkotmánybíróság gyakorlata szerint tilos.',
+ 'közokirat':'Bíróság, közjegyző vagy hatóság által kiállított irat, amely teljes bizonyító erővel bizonyítja a tartalmát.',
+ 'teljes bizonyító erejű magánokirat':'Például két tanúval vagy ügyvédi ellenjegyzéssel ellátott magánokirat.',
+ 'elévülés':'Az az idő, ameddig a NAV az adót megállapíthatja: általában annak az évnek az utolsó napjától számított 5 év, amelyben a bevallást meg kellett tenni.'
+};
+/* Frissítések naplója: mi változott a radaron (nem a tételek, hanem az oldal). A legújabb elöl. */
+var UPD=[
+ ['2026-10-21','Tanácsadói réteg: ellenőrzési dátum, következő lépés, figyelmeztetések, összefüggő változások, szószedet; figyelőlista; egyoldalas összefoglaló; radar mobilon csoportosítva.'],
+ ['2026-10-21','Értesítő: feliratkozási beállítások, levél-előnézet, előzmények a részletpanelen; a GitHub-oldalon hírcsatornák és levélsablonok.'],
+ ['2026-10-21','Felhasználói körök: profilkártyák, több profil, részletpanel, teendőlista, naptárexport, gyűrűnézet, havi naptár, szűrők és rendezés, bemutató.'],
+ ['2026-10-21','Első kiadás: 36 elemzés, 55 változás, 14 dátum, 9 dosszié, 159 archív cikk 2018-tól.']
 ];
 
 /* =====================================================================
@@ -420,9 +476,11 @@ var LV=(function(){
     return {subject:o.subject,pre:o.sub,html:shell({pre:o.sub,title:o.title,sub:o.sub,body:o.body,why:'üdvözlő sorozat · '+P.l})};
   }
   /* hírcsatorna-tételek (RSS/JSON) */
-  function feed(k,alertsOnly){
-    return events(k,add(STAMP,-365),STAMP).filter(function(e){return !alertsOnly||e.kind==='mv'||e.kind==='new'}).slice(0,60).map(function(e){
-      var s=e.s,nx=next(s.id,STAMP);
+  /* asOf: a GitHub napi futása a mai napot adja át, így a „30 napon belül” tételek frissítés nélkül is bekerülnek; a radaron STAMP. */
+  function feed(k,alertsOnly,asOf){
+    var to=asOf&&asOf>STAMP?asOf:STAMP;
+    return events(k,add(to,-365),to).filter(function(e){return !alertsOnly||e.kind==='mv'||e.kind==='new'}).slice(0,60).map(function(e){
+      var s=e.s,nx=next(s.id,to);
       var grp=e.kind==='new'&&e.sigs.length>1;
       return {id:'adoradar-'+e.kind+'-'+(grp?e.src:s.id)+'-'+e.d+(e.c?'-'+CAL.indexOf(e.c):''),d:e.d,title:(grp?e.sigs.length+' új változás: ':KL[e.kind]+': ')+(e.kind==='due'?e.c.s+' – '+s.t:etitle(e)),url:elink(k,e),
         tags:[KL[e.kind],STAT[s.st].l,PRAC[s.p].l].concat(s.who.map(function(w){return prof(w).s})),
@@ -448,7 +506,7 @@ function sigsOfSrc(k){return ALLSIG.filter(function(s){return s.src===k||(s.also
 var reduce=false;try{reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}
 document.body.classList.add('js');if(reduce)document.body.classList.add('no-motion');
 
-var state={prof:'all',prac:null,st:0,dos:'',src:'',sel:'w1',arch:false,arcY:'2026',arcTh:'',q:'',time:'',todo:false,sort:''};
+var state={prof:'all',prac:null,st:0,dos:'',src:'',sel:'w1',arch:false,arcY:'2026',arcTh:'',q:'',time:'',todo:false,sort:'',wl:false};
 
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 function fmtD(iso,prec){var a=iso.split('-');return prec==='m'?a[0]+'. '+MONTHS[+a[1]-1]:a[0]+'.'+a[1]+'.'+a[2]+'.'}
@@ -535,10 +593,23 @@ function buildRadarBg(){
     tp.textContent=(short&&P.short?P.short:P.l).toUpperCase()+' · '+S.n;t.appendChild(tp);g.appendChild(t);
   });
 }
+var CLMAX=6,CLPOS={},NARROW_LAST=null;
+function clusterCells(){var c={};if(!isNarrow())return c;SIG.forEach(function(s){var k=s.p+s.st;c[k]=(c[k]||0)+1});Object.keys(c).forEach(function(k){if(c[k]<=CLMAX)delete c[k]});return c}
+function clusterOpen(p,st){OPENRL[st]=true;renderRlist();var d=$('rlist').querySelector('details[data-st="'+st+'"]');if(d){d.open=true;scrollToEl(d)}toast(SIG.filter(function(s){return s.p===p&&s.st===st}).length+' '+STAT[st].l.toLowerCase()+' · '+PRAC[p].l+' a gyűrűnézetben')}
 function buildRadarFg(){
-  var g=$('rfg');g.innerHTML='';
-  var pings=el('g',{id:'pings'});
+  var g=$('rfg');g.innerHTML='';NARROW_LAST=isNarrow();
+  var pings=el('g',{id:'pings'}),CL=clusterCells();CLPOS={};
+  Object.keys(CL).forEach(function(k){
+    var p=k.slice(0,-1),st=+k.slice(-1),S=SECT[p],P=PRAC[p],th=(S.a0+S.a1)/2,r=ROWS[st][0],x=r*Math.sin(th*Math.PI/180),y=-r*Math.cos(th*Math.PI/180),n=CL[k];
+    var d=el('g',{class:'cl',id:'c-'+k,'data-p':p,'data-st':st,tabindex:'0',role:'button','aria-label':n+' '+STAT[st].l.toLowerCase()+' · '+P.l+'. Megnyitja a gyűrűnézetet.'});
+    d.appendChild(el('circle',{class:'hit',r:26}));d.appendChild(el('circle',{class:'halo',r:20}));d.appendChild(el('circle',{class:'mk',r:17,fill:P.cl}));
+    var t=el('text',{y:5.5});t.textContent=n;d.appendChild(t);
+    d.style.transform='translate('+x.toFixed(1)+'px,'+y.toFixed(1)+'px)';g.appendChild(d);CLPOS[k]={x:x,y:y,p:p,st:st};
+    d.addEventListener('click',function(){clusterOpen(p,st)});
+    d.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();clusterOpen(p,st)}});
+  });
   SIG.forEach(function(s){
+    if(CL[s.p+s.st])return;
     var P=PRAC[s.p],pos=POS[s.id];
     var d=el('g',{class:'dot',id:'d-'+s.id,'data-id':s.id,tabindex:'-1',role:'button','aria-label':s.t+'. '+STAT[s.st].l+', '+P.l+', '+IMP[s.i]});
     d.appendChild(el('circle',{class:'hit',r:12}));
@@ -564,6 +635,14 @@ function buildRadarFg(){
   g.appendChild(pings);
   g.setAttribute('role','group');g.setAttribute('aria-label','Radar: '+SIG.length+' változás. A nyílbillentyűkkel léptethet, Enterrel megnyitja.');
   buildTrails();
+  if(!g.hasAttribute('data-near')){g.setAttribute('data-near','1');g.addEventListener('click',function(e){
+    if(e.target.closest&&e.target.closest('.dot,.cl'))return;
+    var r=$('radarBox').getBoundingClientRect();if(!r.width)return;
+    var x=(e.clientX-r.left)/r.width*600-300,y=(e.clientY-r.top)/r.height*600-300,lim=44/r.width*600,best=null,bd=lim*lim;
+    Array.prototype.forEach.call(g.querySelectorAll('.dot'),function(d){var p=POS[d.getAttribute('data-id')],dd=(p.x-x)*(p.x-x)+(p.y-y)*(p.y-y);if(dd<bd){bd=dd;best=d}});
+    Object.keys(CLPOS).forEach(function(k){var p=CLPOS[k],dd=(p.x-x)*(p.x-x)+(p.y-y)*(p.y-y);if(dd<bd){bd=dd;best=$('c-'+k)}});
+    if(best)best.dispatchEvent(new MouseEvent('click',{bubbles:true}));
+  })}
   var dots=g.querySelectorAll('.dot');
   if(!reduce){
     requestAnimationFrame(function(){requestAnimationFrame(function(){
@@ -587,7 +666,7 @@ function legend(){
   var rings='<svg width="36" height="36" viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="16.5" fill="none" stroke="rgba(255,255,255,.55)"/><circle cx="18" cy="18" r="12" fill="none" stroke="rgba(255,255,255,.55)"/><circle cx="18" cy="18" r="7.5" fill="none" stroke="rgba(255,255,255,.55)"/><circle cx="18" cy="18" r="3" fill="#fff"/></svg>';
   $('rleg').innerHTML='<div class="lg lg-1"><b>Gyűrű = státusz</b><div class="lg-r">'+rings+'<ol class="lg-st">'+[4,3,2,1].map(function(k){return '<li>'+stpHTML(k)+STAT[k].l+'</li>'}).join('')+'</ol></div><small>középről kifelé haladva</small></div>'+
     '<div class="lg"><b>Szelet = szakterület</b><div class="lg-p">'+PORDER.map(function(p){return '<span><i style="background:'+PRAC[p].c+'"></i>'+esc(PRAC[p].short||PRAC[p].l)+'</span>'}).join('')+'</div><small>méret: a változások száma</small></div>'+
-    '<div class="lg"><b>Pontforma = hatás</b><div class="lg-i">'+['teher','konnyites','teendo','semleges'].map(function(k){return '<span>'+impSVG(k,c,bg,13)+IMP[k]+'</span>'}).join('')+'<span><svg width="13" height="13" viewBox="0 0 13 13" aria-hidden="true"><line x1="1" y1="11" x2="12" y2="2" stroke="#fff" stroke-width="1.6" stroke-dasharray="2.5 2"/></svg>Nyomvonal: státuszváltás</span></div></div>';
+    '<div class="lg"><b>Pontforma = hatás</b><div class="lg-i">'+['teher','konnyites','teendo','semleges'].map(function(k){return '<span>'+impSVG(k,c,bg,13)+IMP[k]+'</span>'}).join('')+'<span><svg width="13" height="13" viewBox="0 0 13 13" aria-hidden="true"><line x1="1" y1="11" x2="12" y2="2" stroke="#fff" stroke-width="1.6" stroke-dasharray="2.5 2"/></svg>Nyomvonal: státuszváltás</span><span class="lg-cl"><svg width="15" height="15" viewBox="0 0 15 15" aria-hidden="true"><circle cx="7.5" cy="7.5" r="6.5" fill="#fff"/><text x="7.5" y="10.2" text-anchor="middle" font-size="7.5" font-weight="700" fill="#12201f">9</text></svg>Szám: csoport, érintésre lista</span></div></div>';
 }
 /* sweep + ping */
 var PERIOD=7000,t0=performance.now(),prevA=0;
@@ -619,8 +698,8 @@ function select(id){
   c.innerHTML='<div class="dc-top"><span class="dc-prac">'+esc(P.l)+'</span><span class="dc-dos">· '+esc(DOS[s.dos].l)+'</span>'+stpHTML(s.st,true)+'</div>'+
     '<h2 class="dc-title">'+esc(s.t)+'</h2>'+
     '<div class="dc-fig">'+esc(s.fig)+'</div>'+
-    '<p class="dc-what">'+esc(s.x)+'</p>'+
-    '<dl class="dc-meta"><dt>Kit érint</dt><dd>'+whoHTML(s)+'</dd><dt>Mikor</dt><dd>'+esc(s.w)+'</dd><dt>Hatás</dt><dd style="display:flex;align-items:center;gap:7px">'+impSVG(s.i,P.cl,'#12201f',13)+esc(IMP[s.i])+'</dd>'+
+    '<p class="dc-what">'+glossHTML(s.x)+'</p>'+
+    '<dl class="dc-meta"><dt>Kit érint</dt><dd>'+whoHTML(s)+'</dd><dt>Mikor</dt><dd>'+esc(s.w)+'</dd><dt>Hatás</dt><dd style="display:flex;align-items:center;gap:7px">'+impSVG(s.i,P.cl,'#12201f',13)+esc(IMP[s.i])+'</dd>'+(nextOf(s)?'<dt>Következő</dt><dd>'+esc(nextOf(s))+'</dd>':'')+
     mvHTML(s)+(s.hist?'<dt>Útja</dt><dd>'+histHTML(s,'hist')+'</dd>':'')+'</dl>'+
     '<div class="dc-foot">'+srcLink(s.src)+alsoHTML(s,'dc-also')+(s.tool?'<a class="ghostbtn" '+linkAttrs(s.tool[1])+'>'+esc(s.tool[0])+'</a>':'')+'<button class="ghostbtn" type="button" data-dos="'+s.dos+'">'+esc(DOS[s.dos].l)+': '+dosN+' változás</button><button class="ghostbtn" type="button" data-copy="v-'+s.id+'">Link</button></div>';
   c.querySelector('[data-dos]').addEventListener('click',function(){gotoDossierList(s.dos)});
@@ -662,6 +741,7 @@ function buildPrule(){
 function update(){
   var V=SIG.filter(vis);
   Array.prototype.forEach.call(document.querySelectorAll('#rfg .dot'),function(d){d.classList.toggle('dim',!vis(SIGM[d.getAttribute('data-id')]))});
+  Array.prototype.forEach.call(document.querySelectorAll('#rfg .cl'),function(d){var p=d.getAttribute('data-p'),st=+d.getAttribute('data-st');d.classList.toggle('dim',!SIG.some(function(s){return s.p===p&&s.st===st&&vis(s)}))});
   PORDER.forEach(function(p){var n=SIG.filter(function(s){return s.p===p&&inP(s.who)}).length;$('prc-'+p).textContent=n+' változás'+(state.prof==='all'?'':' · Önnek');});
   renderFacts(V);renderSummary(V);renderTodo();renderList();renderCal();renderRlist();applySince();
   if(LZ.dz)renderDossiers();else LZD.dz=true;
@@ -687,7 +767,8 @@ function renderSummary(V){
     '<div class="stbar" role="img" aria-label="Státusz szerinti megoszlás">'+bar+'</div><div class="stleg">'+leg+'</div>'+
     (function(){var T=todoItems(),dn=T.filter(function(i){return TD[i.k]}).length,nh=T.filter(function(i){return i.g==='h'}).length;
       return '<div class="sum-td"><div><b>'+T.length+'</b><span>teendő a profiljára, ebből '+nh+' határidős'+(dn?' · '+dn+' kész':'')+'</span></div><a class="tbtn" href="#teendok">Teendőlista</a></div>'})()+
-    '<a class="cta" '+linkAttrs(cta[1])+'>'+esc(cta[0])+'</a>';
+    (function(){var W=wlIds(),Wv=W.filter(function(id){return vis(SIGM[id])}).length;return '<div class="sum-wl"><div><b>'+Wv+'</b><span>'+(W.length?'figyelt változás'+(Wv<W.length?' ebben a szűrésben ('+W.length+' összesen)':''):'figyelt változás · a kártyákon a ☆ gombbal jelölhet meg tételeket')+'</span></div>'+(W.length?'<button type="button" class="tbtn" data-wlview>Figyelőlista</button>':'')+'</div>'})()+
+    '<div class="sum-act"><button type="button" class="tbtn" data-print="onepage">Egyoldalas összefoglaló</button><a class="cta" '+linkAttrs(cta[1])+'>'+esc(cta[0])+'</a></div>';
   Array.prototype.forEach.call($('sumcard').querySelectorAll('[data-nudge]'),function(b){b.addEventListener('click',function(){setProf(b.getAttribute('data-nudge'))})});
 }
 function srcSorted(){return Object.keys(SRC).filter(function(k){return !SRC[k].ext}).sort(function(a,b){return SRC[a].d<SRC[b].d?1:SRC[a].d>SRC[b].d?-1:0})}
@@ -706,6 +787,7 @@ function buildFilters(){
   $('pracSel').addEventListener('change',function(){setPrac(this.value)});
   $('timeSel').addEventListener('change',function(){state.time=this.value;renderList()});
   $('todoTog').addEventListener('change',function(){state.todo=this.checked;renderList()});
+  $('wlTog').addEventListener('change',function(){state.wl=this.checked;renderList()});
   $('archTog').addEventListener('change',function(){state.arch=this.checked;renderList()});
   $('sortSel').addEventListener('change',function(){state.sort=this.value;renderList()});
   var qt;$('fq').addEventListener('input',function(){var v=this.value;clearTimeout(qt);qt=setTimeout(function(){state.q=v.trim();renderList()},140)});
@@ -714,7 +796,7 @@ function buildFilters(){
   $('archTogN').textContent=ASIG.length;
 }
 function lpool(){return state.arch?ALLSIG:SIG}
-function lvis(s){return vis(s)&&(!state.dos||s.dos===state.dos)&&(!state.src||s.src===state.src||(s.also&&s.also.indexOf(state.src)>-1))&&(!state.todo||s.i==='teendo')&&timeOK(s)&&qOK(s)}
+function lvis(s){return vis(s)&&(!state.dos||s.dos===state.dos)&&(!state.src||s.src===state.src||(s.also&&s.also.indexOf(state.src)>-1))&&(!state.todo||s.i==='teendo')&&(!state.wl||WL[s.id])&&timeOK(s)&&qOK(s)}
 function renderStChips(){
   var base=lpool().filter(lvis);
   var h='<button type="button" class="chip" data-st="0" aria-pressed="'+(state.st===0)+'">Mind <small>'+base.length+'</small></button>';
@@ -730,11 +812,11 @@ function cardHTML(s){
     '<div class="sc-top"><span class="sc-prac">'+esc(P.l)+'</span><span class="sc-dos">'+(s.arch?'Archív':esc(DOS[s.dos].l))+'</span></div>'+
     '<h4 class="sc-title"><button type="button" class="sc-open" data-open="'+s.id+'">'+esc(s.t)+'</button></h4>'+
     '<div class="sc-badges">'+stBadge(s.st,s.arch)+'<span class="impc">'+impSVG(s.i,P.c,'#ffffff',12)+esc(IMP[s.i])+'</span>'+(s.mv?'<span class="mvc" title="Dokumentált státuszváltás">'+STAT[s.mv[0]].l+' → '+STAT[s.st].l+', '+fmtD(s.mv[1])+'</span>':'')+'</div>'+
-    '<div class="sc-fig">'+esc(s.fig)+'</div><p class="sc-what">'+esc(s.x)+'</p>'+
+    '<div class="sc-fig">'+esc(s.fig)+'</div><p class="sc-what">'+glossHTML(s.x)+'</p>'+(s.fl?'<p class="sc-fl">'+esc(s.fl)+'</p>':'')+
     '<dl class="sc-meta"><dt>Kit érint</dt><dd>'+whoHTML(s)+'</dd><dt>Mikortól</dt><dd>'+esc(s.w)+'</dd></dl>'+
     (s.arch?'':todoBoxHTML(s))+pathHTML(s)+
-    '<div class="sc-foot"><span class="sc-src">'+srcLink(s.src)+alsoHTML(s,'sc-also')+'<span class="ls">Utolsó forrás: '+fmtD(lastSrcDate(s))+'</span></span><span class="sc-act">'+(s.tool?'<a class="linkbtn" '+linkAttrs(toolUrl(s.tool[1]))+'>'+esc(s.tool[0])+'</a>':'')+
-    '<button class="linkbtn" type="button" data-open="'+s.id+'">Részletek</button><button class="linkbtn" type="button" data-copy="v-'+s.id+'" aria-label="Link másolása: '+esc(s.t)+'">Link</button>'+(s.arch?'':'<button class="linkbtn" type="button" data-show="'+s.id+'">Radaron</button><a class="linkbtn" href="'+esc(mailto(s))+'">Kérdezzen</a>')+'</span></div></article>';
+    '<div class="sc-foot"><span class="sc-src">'+srcLink(s.src)+alsoHTML(s,'sc-also')+'<span class="ls">Utolsó forrás: '+fmtD(lastSrcDate(s))+(s.arch?'':' · Ellenőrizve: '+chkHTML(s))+'</span></span><span class="sc-act">'+(s.tool?'<a class="linkbtn" '+linkAttrs(toolUrl(s.tool[1]))+'>'+esc(s.tool[0])+'</a>':'')+
+    '<button class="linkbtn" type="button" data-open="'+s.id+'">Részletek</button><button class="linkbtn" type="button" data-copy="v-'+s.id+'" aria-label="Link másolása: '+esc(s.t)+'">Link</button>'+(s.arch?'':'<button class="linkbtn" type="button" data-show="'+s.id+'">Radaron</button><a class="linkbtn" href="'+esc(mailto(s))+'">Kérdezzen</a>'+wlBtn(s.id,'wl-btn'))+'</span></div></article>';
 }
 function nextDate(s){var f=calOf(s.id).filter(function(c){return days(c.d)>=0})[0];return f?f.d:'9999'}
 function sortL(G){var k=state.sort;if(!k)return G;var o=G.slice();
@@ -746,8 +828,9 @@ function renderList(){
   renderStChips();renderActive();
   var L=lpool().filter(function(s){return lvis(s)&&(!state.st||s.st===state.st)});
   $('fcount').textContent=L.length+' változás látszik';
-  if(!L.length){$('list').innerHTML='<div class="empty">Erre a szűrésre nincs változás.'+(state.q?' Próbáljon rövidebb vagy más keresőszót.':'')+' <button type="button" class="linkbtn" id="emptyClr">Szűrők törlése</button></div>';$('emptyClr').addEventListener('click',clearAll);return}
+  if(!L.length){$('list').innerHTML='<div class="empty">Erre a szűrésre nincs változás.'+(state.q?' Próbáljon rövidebb vagy más keresőszót.':state.wl&&!wlIds().length?' A figyelőlista üres: a kártyákon a ☆ gombbal vehet fel változást.':'')+' <button type="button" class="linkbtn" id="emptyClr">Szűrők törlése</button></div>';$('emptyClr').addEventListener('click',clearAll);return}
   var h='';
+  if(state.wl){var wc=wlCal();h+='<div class="wl-bar"><span><b>'+L.length+'</b> figyelt változás'+(wc.length?', '+wc.length+' előttünk álló dátummal':'')+'</span>'+(wc.length?(IN_VIEWER?'<a class="tbtn" href="'+esc(PUBLIC_URL+'#valtozasok')+'" target="_blank" rel="noopener noreferrer">Naptárba a nyilvános oldalon ↗</a>':'<button type="button" class="tbtn" data-icswl>Határidőik naptárba (.ics)</button>'):'')+'</div>'}
   [4,3,2,1].forEach(function(k){
     var G=L.filter(function(s){return !s.arch&&s.st===k});if(!G.length)return;
     h+='<div class="grp"><div class="grp-h"><h3>'+stpHTML(k)+STAT[k].h+'</h3><p>'+STAT[k].d+'</p></div><div class="cards">'+sortL(G).map(cardHTML).join('')+'</div></div>';
@@ -1107,6 +1190,59 @@ function lastSrcDate(s){var d=SRC[s.src]?SRC[s.src].d:'';(s.also||[]).forEach(fu
 function calOf(id){return CAL.filter(function(c){return c.sig===id}).sort(function(a,b){return a.d<b.d?-1:1})}
 function mailto(s){return 'mailto:'+MAIL+'?subject='+encodeURIComponent('Adóradar: '+s.t)+'&body='+encodeURIComponent('Kérdésem a következő változással kapcsolatban:\n'+s.t+' ('+STAT[s.st].l+')\n'+shareURL('v-'+s.id)+'\n\n')}
 function norm(t){return String(t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')}
+/* ---------- v9: tanácsadói réteg ---------- */
+function chkOf(s){return s.chk||CHK}
+function chkHTML(s){var d=chkOf(s),n=-days(d),st=n>CHK_WARN;return '<span class="chk'+(st?' stale':'')+'" title="Ekkor néztük át utoljára, hogy a tétel még így áll">'+fmtD(d)+(st?' · '+n+' napja, ellenőrzendő':'')+'</span>'}
+function nextOf(s){return s.st<4?(s.next||NEXT[s.st]):''}
+function relOf(id){var o=[];Object.keys(REL).forEach(function(k){if(k===id)REL[k].forEach(function(x){if(o.indexOf(x)<0)o.push(x)});else if(REL[k].indexOf(id)>-1&&o.indexOf(k)<0)o.push(k)});return o.filter(function(x){return SIGM[x]&&!SIGM[x].arch})}
+function relHTML(s){var R=relOf(s.id);if(!R.length)return '';return '<div class="dw-rel"><h3>Összefügg vele</h3><ul class="rel">'+R.map(function(id){var r=SIGM[id];return '<li><button type="button" data-open="'+id+'">'+stpHTML(r.st)+'<span>'+esc(r.t)+'</span></button></li>'}).join('')+'</ul></div>'}
+function fbMail(s){return 'mailto:'+MAIL+'?subject='+encodeURIComponent('Adóradar – pontosítás'+(s?': '+s.t:''))+'&body='+encodeURIComponent((s?s.t+'\n'+shareURL('v-'+s.id)+'\n\n':'')+'Mi pontatlan, és mi lenne a helyes?\n\n')}
+var GLK=Object.keys(GLOSS).sort(function(a,b){return b.length-a.length}),GLRE={};
+(function(){GLK.forEach(function(k){try{GLRE[k]=new RegExp('(^|[^\\p{L}\\-])('+k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','iu')}catch(e){}})})();
+function glossHTML(t){t=String(t);var spans=[];
+  GLK.forEach(function(k){var re=GLRE[k];if(!re)return;var m=re.exec(t);if(!m)return;var a=m.index+m[1].length,b=a+m[2].length;if(spans.some(function(s){return a<s[1]&&b>s[0]}))return;spans.push([a,b,k])});
+  if(!spans.length)return esc(t);spans.sort(function(x,y){return x[0]-y[0]});
+  var out='',p=0;spans.forEach(function(s){out+=esc(t.slice(p,s[0]))+'<button type="button" class="gl" data-gl="'+esc(s[2])+'" aria-expanded="false">'+esc(t.slice(s[0],s[1]))+'</button>';p=s[1]});return out+esc(t.slice(p))}
+var glCur=null;
+function glShow(b){var k=b.getAttribute('data-gl'),p=$('glpop');if(!GLOSS[k])return;if(glCur&&glCur!==b)glCur.setAttribute('aria-expanded','false');glCur=b;b.setAttribute('aria-expanded','true');
+  $('glpopK').textContent=k;$('glpopT').textContent=GLOSS[k];p.hidden=false;
+  var r=b.getBoundingClientRect(),w=Math.min(300,window.innerWidth-16),x=Math.max(8,Math.min(r.left,window.innerWidth-w-8)),y=r.bottom+6;
+  p.style.left=x+'px';p.style.top=y+'px';p.style.maxWidth=w+'px';
+  var h=p.offsetHeight;if(y+h>window.innerHeight-8)p.style.top=Math.max(8,r.top-h-6)+'px'}
+function glHide(){var p=$('glpop');p.hidden=true;if(glCur)glCur.setAttribute('aria-expanded','false');glCur=null}
+function buildGloss(){
+  $('glList').innerHTML=Object.keys(GLOSS).filter(function(k){return k!=='bizalmi vagyonkezelés'}).sort(function(a,b){return a.localeCompare(b,'hu')}).map(function(k){return '<dt>'+esc(k)+'</dt><dd>'+esc(GLOSS[k])+'</dd>'}).join('');
+  $('updList').innerHTML=UPD.map(function(u){return '<li><time datetime="'+u[0]+'">'+fmtD(u[0])+'</time><span>'+esc(u[1])+'</span></li>'}).join('');
+  $('fbLink').setAttribute('href',fbMail(null));
+  document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.gl');if(b){glShow(b);return}if(!(e.target.closest&&e.target.closest('#glpop')))glHide()});
+  document.addEventListener('focusin',function(e){var b=e.target.closest&&e.target.closest('.gl');if(b)glShow(b);else if(!(e.target.closest&&e.target.closest('#glpop')))glHide()});
+  document.addEventListener('mouseover',function(e){var b=e.target.closest&&e.target.closest('.gl');if(b&&glCur!==b)glShow(b)});
+  document.addEventListener('mouseout',function(e){var b=e.target.closest&&e.target.closest('.gl');if(b&&glCur===b&&document.activeElement!==b)glHide()});
+  window.addEventListener('scroll',function(){if(glCur&&document.activeElement!==glCur)glHide()},{passive:true});
+}
+/* figyelőlista */
+var WL={};try{WL=JSON.parse(LS.get('wl')||'{}')||{}}catch(e){WL={}}
+function wlSave(){LS.set('wl',JSON.stringify(WL))}
+function wlIds(){return Object.keys(WL).filter(function(k){return SIGM[k]&&!SIGM[k].arch})}
+function wlBtn(id,cls){var on=!!WL[id],s=SIGM[id];return '<button type="button" class="'+cls+'" data-wl="'+id+'" aria-pressed="'+on+'" aria-label="'+(on?'Levétel a figyelőlistáról':'Felvétel a figyelőlistára')+': '+esc(s.t)+'" title="Figyelőlista">'+(on?'★ Figyelt':'☆ Figyelem')+'</button>'}
+function wlMark(){Array.prototype.forEach.call(document.querySelectorAll('#rfg .dot'),function(d){d.classList.toggle('wl',!!WL[d.getAttribute('data-id')])});$('wlTogN').textContent=wlIds().length?'('+wlIds().length+')':''}
+function wlToggle(id){if(WL[id])delete WL[id];else WL[id]=1;wlSave();var on=!!WL[id];
+  Array.prototype.forEach.call(document.querySelectorAll('[data-wl="'+id+'"]'),function(b){b.setAttribute('aria-pressed',String(on));b.textContent=on?'★ Figyelt':'☆ Figyelem';b.setAttribute('aria-label',(on?'Levétel a figyelőlistáról':'Felvétel a figyelőlistára')+': '+SIGM[id].t)});
+  wlMark();toast(on?'Felvéve a figyelőlistára':'Levéve a figyelőlistáról');renderSummary(SIG.filter(vis));if(state.wl)renderList()}
+function wlCal(){return CAL.filter(function(c){return WL[c.sig]&&days(c.d)>=0}).sort(function(a,b){return a.d<b.d?-1:1})}
+/* egyoldalas összefoglaló */
+function topSigs(V,n){return V.slice().sort(function(a,b){var da=nextDate(a),db=nextDate(b),fa=da==='9999'?1:0,fb=db==='9999'?1:0,ia=a.i==='teher'||a.i==='teendo'?0:1,ib=b.i==='teher'||b.i==='teendo'?0:1;return fa-fb||(da<db?-1:da>db?1:0)||ia-ib||b.st-a.st||a.ix-b.ix}).slice(0,n)}
+function renderOnepage(){
+  var V=SIG.filter(vis),P=curProf(),cnt={1:0,2:0,3:0,4:0};V.forEach(function(s){cnt[s.st]++});
+  var T=todoItems(),fut=nextCal().slice(0,7),W=wlIds().filter(function(id){return vis(SIGM[id])});
+  $('onepage').innerHTML='<div class="op"><div class="op-h"><h1>Adóradar 2027 <span>· összefoglaló</span></h1><div class="op-p"><b>'+esc(P.l)+'</b><br>'+(state.prac?esc(PRAC[state.prac].l)+' · ':'')+'állapot: '+fmtD(STAMP)+' · nyomtatva: '+fmtD(TODAY)+'</div></div>'+
+    '<p><b>'+V.length+' változás</b> érinti ezt a profilt: '+[4,3,2,1].map(function(k){return cnt[k]+' '+STAT[k].l.toLowerCase()}).join(', ')+'. A teendőlistán '+T.length+' tétel, ebből '+T.filter(function(i){return TD[i.k]}).length+' kész.</p>'+
+    '<h2>Legfontosabb változások</h2><ol>'+topSigs(V,6).map(function(s){return '<li><span class="op-st">'+STAT[s.st].l+' · '+esc(PRAC[s.p].short||PRAC[s.p].l)+'</span><span><b>'+esc(s.t)+'</b> <small>'+esc(s.fig)+' · '+esc(s.fl||s.w)+'</small></span></li>'}).join('')+'</ol>'+
+    '<div class="op-cols"><div><h2>Határidők</h2>'+(fut.length?'<ul>'+fut.map(function(c){return '<li><span>'+fmtD(c.d,c.prec)+'</span><span>'+esc(c.s)+'</span></li>'}).join('')+'</ul>':'<p>Nincs ismert dátum; a 2027-es intézkedések napja a törvényjavaslatból derül ki.</p>')+'</div>'+
+    '<div><h2>Teendők</h2><ul>'+T.slice(0,6).map(function(i){return '<li class="one"><span><span class="op-chk">'+(TD[i.k]?'[x]':'[ ]')+'</span> '+(i.d?fmtD(i.d,i.prec)+' · ':'')+esc(i.t)+'</span></li>'}).join('')+(T.length>6?'<li class="one"><span>… és még '+(T.length-6)+' tétel a teendőlistán.</span></li>':'')+'</ul></div></div>'+
+    (W.length?'<h2>Figyelőlista</h2><ul>'+W.slice(0,5).map(function(id){var s=SIGM[id];return '<li><span class="op-st">'+STAT[s.st].l+'</span><span><b>'+esc(s.t)+'</b> <small>'+esc(s.w)+'</small></span></li>'}).join('')+'</ul>':'')+
+    '<div class="op-foot">Forrás: a BékésPartners Insights-elemzései · '+esc(shareURL(''))+' · Tájékoztató összefoglaló, nem minősül jogi vagy adótanácsadásnak. Kérdés: '+MAIL+' · +36 1 646 4646</div></div>';
+}
 
 /* ---------- v4: naptárexport ---------- */
 function ymd(iso){return iso.replace(/-/g,'')}
@@ -1142,17 +1278,19 @@ var dwLast=null;
 function detailHTML(s){
   var P=PRAC[s.p]||PRAC.tax,cal=calOf(s.id),ld=lastSrcDate(s);
   return '<div class="sc-top" style="--pt:'+P.t+'"><span class="sc-prac">'+esc(P.l)+'</span><span class="sc-dos">'+(s.arch?'Archív jelzés':esc(DOS[s.dos].l))+'</span>'+stBadge(s.st,s.arch)+'</div>'+
-    '<h2 class="dw-title" id="dwTitle">'+esc(s.t)+'</h2><div class="dw-fig" style="color:'+P.t+'">'+esc(s.fig)+'</div><p class="dw-what">'+esc(s.x)+'</p>'+
+    '<h2 class="dw-title" id="dwTitle">'+esc(s.t)+'</h2><div class="dw-fig" style="color:'+P.t+'">'+esc(s.fig)+'</div><p class="dw-what">'+glossHTML(s.x)+'</p>'+
     '<dl class="sc-meta dw-meta" style="--pc:'+P.c+'"><dt>Kit érint</dt><dd>'+whoHTML(s)+'</dd><dt>Mikor</dt><dd>'+esc(s.w)+'</dd><dt>Hatás</dt><dd class="imp-dd">'+impSVG(s.i,P.c,'#ffffff',13)+esc(IMP[s.i])+'</dd>'+
-    '<dt>Forrás</dt><dd class="sc-src">'+srcLink(s.src)+alsoHTML(s,'sc-also')+'<span class="ls">Utolsó forrás: '+fmtD(ld)+'</span></dd>'+mvHTML(s)+(s.hist?'<dt>Útja</dt><dd>'+histHTML(s,'hist light')+'</dd>':'')+'</dl>'+
+    (s.fl?'<dt>Figyelem</dt><dd class="fl-dd">'+esc(s.fl)+'</dd>':'')+(nextOf(s)&&!s.arch?'<dt>Következő lépés</dt><dd>'+esc(nextOf(s))+'</dd>':'')+
+    '<dt>Forrás</dt><dd class="sc-src">'+srcLink(s.src)+alsoHTML(s,'sc-also')+'<span class="ls">Utolsó forrás: '+fmtD(ld)+'</span></dd>'+(s.arch?'':'<dt>Ellenőrizve</dt><dd>'+chkHTML(s)+' <span class="ls">a források átnézésének napja</span></dd>')+mvHTML(s)+(s.hist?'<dt>Útja</dt><dd>'+histHTML(s,'hist light')+'</dd>':'')+'</dl>'+
     (cal.length?'<div class="dw-cal"><h3>Dátumok</h3><ul>'+cal.map(function(c){var n=days(c.d);return '<li><div><time datetime="'+c.d+'">'+fmtD(c.d,c.prec)+'</time><span class="cdn'+(n>=0&&n<=90?' soon':'')+'">'+(c.prec==='m'?'hónap pontossággal':cdTxt(n))+'</span></div><p>'+esc(c.t)+'</p>'+(n>=0?calMenu(c):'')+'</li>'}).join('')+'</ul></div>':'')+
     (function(){var R=LV.prior(s.id);if(!R.length)return '';return '<div class="dw-prior"><h3>Előzmények a BékésPartners archívumából</h3><ul>'+R.slice(-4).reverse().map(function(r){return '<li><time datetime="'+r.d+'">'+fmtD(r.d)+'</time><a href="'+esc(r.u)+'" target="_blank" rel="noopener noreferrer">'+esc(r.t)+' ↗</a><p>'+esc(r.x)+'</p></li>'}).join('')+'</ul>'+(R.length>4?'<p class="fine">További '+(R.length-4)+' korábbi anyag az Elemzések 2018– részben.</p>':'')+'</div>'})()+
+    (s.arch?'':relHTML(s))+
     (s.arch?'<p class="dw-arch">A megjelenéskori állapotot mutatja; a mai hatályosságot nem vizsgáltuk.</p>':'')+
-    '<div class="dw-act">'+(s.tool?'<a class="tbtn" '+linkAttrs(toolUrl(s.tool[1]))+'>'+esc(s.tool[0])+'</a>':'')+
+    '<div class="dw-act">'+(s.arch?'':wlBtn(s.id,'tbtn'))+(s.tool?'<a class="tbtn" '+linkAttrs(toolUrl(s.tool[1]))+'>'+esc(s.tool[0])+'</a>':'')+
     '<button type="button" class="tbtn" data-copy="v-'+s.id+'">Link másolása</button>'+
     (s.arch?'':'<button type="button" class="tbtn" data-radar="'+s.id+'">Mutasd a radaron</button><button type="button" class="tbtn" data-dosl="'+s.dos+'">Dosszié: '+esc(DOS[s.dos].l)+'</button>')+
     '<a class="tbtn solid" href="'+esc(mailto(s))+'">Kérdezze a tanácsadót</a></div>'+
-    '<p class="fine">Tájékoztató összefoglaló a BékésPartners elemzése alapján; nem minősül jogi vagy adótanácsadásnak.</p>';
+    '<p class="fine">Tájékoztató összefoglaló a BékésPartners elemzése alapján; nem minősül jogi vagy adótanácsadásnak. <a href="'+esc(fbMail(s))+'">Pontatlanságot talált? Jelezze.</a></p>';
 }
 function openDetail(id,opt){
   var s=SIGM[id];if(!s)return;opt=opt||{};
@@ -1176,7 +1314,7 @@ function closeDetail(){
 (function(){
   var panel=$('dwPanel'),y0=null,dy=0;
   panel.addEventListener('keydown',function(e){
-    if(e.key==='Escape'){e.preventDefault();closeDetail();return}
+    if(e.key==='Escape'){e.preventDefault();e.stopPropagation();if(glCur){glHide();return}closeDetail();return}
     if(e.key!=='Tab')return;
     var f=Array.prototype.filter.call(panel.querySelectorAll('a[href],button:not([disabled]),summary,input,select,textarea,[tabindex="0"]'),function(x){return x.offsetParent!==null});
     if(!f.length)return;var a=f[0],z=f[f.length-1];
@@ -1196,6 +1334,7 @@ function pickDot(id){if(isNarrow())openDetail(id);else select(id)}
 function moveDot(id,dir){
   var L=DOT_ORDER.filter(function(x){return vis(SIGM[x])});if(!L.length)return;
   var i=L.indexOf(id),n=dir==='first'?L[0]:dir==='last'?L[L.length-1]:L[((i<0?0:i)+dir+L.length)%L.length];
+  if(!$('d-'+n)){var k=L.indexOf(n),tries=L.length;while(tries--&&!$('d-'+n)){k=(k+(dir===-1?-1:1)+L.length)%L.length;n=L[k]}if(!$('d-'+n))return}
   setRove(n);$('d-'+n).focus();if(!isNarrow())select(n);
 }
 
@@ -1259,7 +1398,7 @@ function setPrac(p){
   update();
 }
 function clearFilters(){
-  state.q='';$('fq').value='';state.time='';$('timeSel').value='';state.todo=false;$('todoTog').checked=false;state.dos='';$('dosSel').value='';state.st=0;state.src='';
+  state.q='';$('fq').value='';state.time='';$('timeSel').value='';state.todo=false;$('todoTog').checked=false;state.wl=false;$('wlTog').checked=false;state.dos='';$('dosSel').value='';state.st=0;state.src='';
   if(state.prac)setPrac(null);else renderList();
 }
 function renderActive(){
@@ -1269,20 +1408,21 @@ function renderActive(){
   if(state.dos)A.push(['dos','Dosszié: '+DOS[state.dos].l]);
   if(state.time)A.push(['time',state.time==='date'?'Van ismert dátuma':'90 napon belül']);
   if(state.todo)A.push(['todo','Csak teendővel']);
+  if(state.wl)A.push(['wl','Figyelőlista']);
   if(state.q)A.push(['q','„'+state.q+'”']);
   if(state.arch)A.push(['arch','Archívval együtt']);
-  var nx=['prac','dos','time','todo','arch'].filter(function(k){return A.some(function(a){return a[0]===k})}).length;
+  var nx=['prac','dos','time','todo','arch','wl'].filter(function(k){return A.some(function(a){return a[0]===k})}).length;
   $('fOpenN').textContent=nx?'('+nx+')':'';
   $('fActive').innerHTML=A.map(function(a){return '<button type="button" class="fa" data-fa="'+a[0]+'" aria-label="Szűrő törlése: '+esc(a[1])+'">'+esc(a[1])+' <span aria-hidden="true">×</span></button>'}).join('')+(A.length>1?'<button type="button" class="linkbtn" data-fa="all">Összes szűrő törlése</button>':'');
   Array.prototype.forEach.call($('fActive').querySelectorAll('[data-fa]'),function(b){b.addEventListener('click',function(){
     var k=b.getAttribute('data-fa');
     if(k==='all'){clearAll();return}
     if(k==='prof')setProf('all');else if(k==='prac')setPrac(null);
-    else{if(k==='dos'){state.dos='';$('dosSel').value=''}if(k==='time'){state.time='';$('timeSel').value=''}if(k==='todo'){state.todo=false;$('todoTog').checked=false}if(k==='q'){state.q='';$('fq').value=''}if(k==='arch'){state.arch=false;$('archTog').checked=false}renderList()}
+    else{if(k==='dos'){state.dos='';$('dosSel').value=''}if(k==='time'){state.time='';$('timeSel').value=''}if(k==='todo'){state.todo=false;$('todoTog').checked=false}if(k==='q'){state.q='';$('fq').value=''}if(k==='arch'){state.arch=false;$('archTog').checked=false}if(k==='wl'){state.wl=false;$('wlTog').checked=false}renderList()}
   })});
 }
 function clearAll(){
-  state.q='';$('fq').value='';state.time='';$('timeSel').value='';state.todo=false;$('todoTog').checked=false;state.dos='';$('dosSel').value='';state.st=0;state.src='';
+  state.q='';$('fq').value='';state.time='';$('timeSel').value='';state.todo=false;$('todoTog').checked=false;state.wl=false;$('wlTog').checked=false;state.dos='';$('dosSel').value='';state.st=0;state.src='';
   state.arch=false;$('archTog').checked=false;state.prac=null;$('pracSel').value='';resetFilters();
   if(state.prof!=='all')setProf('all');else update();
 }
@@ -1333,7 +1473,7 @@ function mvHTML(s){return s.mv?'<dt>Státuszváltás</dt><dd class="mv-dd">'+stp
 function buildTrails(){
   var g=$('rfg'),old=$('trails');if(old)old.remove();
   var t=el('g',{id:'trails','aria-hidden':'true'});
-  SIG.filter(function(s){return s.mv}).forEach(function(s){
+  SIG.filter(function(s){return s.mv&&$('d-'+s.id)}).forEach(function(s){
     var p=POS[s.id],r0=ROWS[s.mv[0]][0],a=pt(p.th,r0),P=PRAC[s.p];
     var tg=el('g',{class:'trail','data-id':s.id});
     tg.appendChild(el('line',{x1:a[0].toFixed(1),y1:a[1].toFixed(1),x2:p.x.toFixed(1),y2:p.y.toFixed(1),stroke:P.cl}));
@@ -1398,7 +1538,7 @@ function shareTool(id){
   var q=id==='cv'?'cv='+cvParams():id==='vb'?'vb='+vbParams():'bt='+btParams(),h=id==='cv'?'cegertek':id==='vb'?'becslo':'onteszt';
   copyText(SHARE_BASE+'?'+(state.prof!=='all'?'profil='+state.prof+'&':'')+q+'#'+h,'Link az eredményhez a vágólapon');
 }
-function printPart(id){document.body.setAttribute('data-print',id);document.body.classList.add('print-part');try{window.print()}catch(e){toast('A nyomtatás ebben a nézetben nem érhető el.')}setTimeout(function(){document.body.classList.remove('print-part');document.body.removeAttribute('data-print')},800)}
+function printPart(id){if(id==='onepage')renderOnepage();document.body.setAttribute('data-print',id);document.body.classList.add('print-part');try{window.print()}catch(e){toast('A nyomtatás ebben a nézetben nem érhető el.')}setTimeout(function(){document.body.classList.remove('print-part');document.body.removeAttribute('data-print')},800)}
 function loadParams(){
   var P;try{P=new URLSearchParams(location.search)}catch(e){return}
   var got=0,cv=P.get('cv'),vb=P.get('vb'),bt=P.get('bt');
@@ -1457,7 +1597,7 @@ function tourInit(){
 if(!document.documentElement.lang)document.documentElement.lang='hu';
 $('stamp').textContent='Szabályozási radar · állapot: '+fmtLong(STAMP);
 Array.prototype.forEach.call(document.querySelectorAll('[data-stamp]'),function(e){e.textContent=fmtLong(STAMP)});
-buildProf();buildPrule();buildFilters();legend();buildRadarBg();buildRadarFg();renderFeed();buildTest();buildCalc();buildCV();buildTodo();buildSample();
+buildProf();buildPrule();buildFilters();legend();buildRadarBg();buildRadarFg();renderFeed();buildTest();buildCalc();buildCV();buildTodo();buildSample();buildGloss();wlMark();
 (function(){var o=$('sinceSel').querySelector('[value="visit"]');if(VISIT_PREV)o.textContent='Az előző látogatása óta ('+fmtD(VISIT_PREV)+')';else o.textContent='Az előző látogatása óta (első látogatás)'})();
 $('sinceSel').addEventListener('change',applySince);
 $('stPrev').addEventListener('click',function(){if(stI>0){stI--;stLayout()}});
@@ -1470,7 +1610,7 @@ if('IntersectionObserver' in window){var lzo=new IntersectionObserver(function(e
 buildNavExtras();loadParams();tourInit();
 $('radarBox').classList.add('ready');
 document.addEventListener('click',function(e){
-  var t=e.target.closest?e.target.closest('[data-open],[data-copy],[data-ics],[data-icsall],[data-radar],[data-dosl],[data-close],[data-share],[data-print],[data-calcclr]'):null;
+  var t=e.target.closest?e.target.closest('[data-open],[data-copy],[data-ics],[data-icsall],[data-icswl],[data-radar],[data-dosl],[data-close],[data-share],[data-print],[data-calcclr],[data-wl],[data-wlview]'):null;
   var m=e.target.closest&&e.target.closest('details.calm');closeMenus(m);
   if(!t){if(e.target.closest&&e.target.closest('#drawer a[href^="#"]'))closeDetail();return}
   if(t.hasAttribute('data-close')){closeDetail();return}
@@ -1481,11 +1621,14 @@ document.addEventListener('click',function(e){
   if(t.hasAttribute('data-copy')){copyLink(t.getAttribute('data-copy'));return}
   if(t.hasAttribute('data-ics')){var c=CAL[+t.getAttribute('data-ics')];saveICS([c],'adoradar-'+c.d+'.ics');closeMenus();return}
   if(t.hasAttribute('data-icsall')){saveICS(nextCal(),'adoradar-hataridok.ics');return}
+  if(t.hasAttribute('data-icswl')){saveICS(wlCal(),'adoradar-figyelolista.ics');return}
+  if(t.hasAttribute('data-wl')){wlToggle(t.getAttribute('data-wl'));return}
+  if(t.hasAttribute('data-wlview')){state.wl=true;$('wlTog').checked=true;renderList();scrollToEl($('valtozasok'));return}
   if(t.hasAttribute('data-radar')){var id=t.getAttribute('data-radar');closeDetail();select(id);scrollToEl($('radar'));return}
   if(t.hasAttribute('data-dosl')){var k=t.getAttribute('data-dosl');closeDetail();gotoDossierList(k)}
 });
-document.addEventListener('keydown',function(e){if(e.key!=='Escape')return;if(!$('tour').hidden){tourEnd();return}if(!$('drawer').hidden){closeDetail();return}if($('fbar').classList.contains('open')){fxOpen(false);return}closeMenus()});
+document.addEventListener('keydown',function(e){if(e.key!=='Escape')return;if(glCur){glHide();return}if(!$('tour').hidden){tourEnd();return}if(!$('drawer').hidden){closeDetail();return}if($('fbar').classList.contains('open')){fxOpen(false);return}closeMenus()});
 window.addEventListener('hashchange',function(){route(false)});
 route(true);
-var rw=$('radarBox').clientWidth;window.addEventListener('resize',function(){var w=$('radarBox').clientWidth;if(Math.abs(w-rw)>40){rw=w;buildRadarBg()}});
+var rw=$('radarBox').clientWidth;window.addEventListener('resize',function(){var w=$('radarBox').clientWidth;if(Math.abs(w-rw)>40){rw=w;buildRadarBg()}if(isNarrow()!==NARROW_LAST){buildRadarFg();update();applySince();wlMark();setRove(state.sel)}});
 if(!reduce)requestAnimationFrame(frame);

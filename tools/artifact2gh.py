@@ -1,4 +1,6 @@
-"""Adóradar: az artifact index.html-jéből a GitHub Pages-változat (index.html + radar.css + radar.js),\nvalamint a tools/levelek.js-sel a hírcsatornák (hircsatorna/) és a levélsablonok (levelek/).
+"""Adóradar: az artifact index.html-jéből a GitHub Pages-változat (index.html + radar.css + radar.js + sitemap.xml),
+a forrás másolata (tools/forras/index.html), valamint a tools/levelek.js-sel a hírcsatornák (hircsatorna/) és a levélsablonok (levelek/).
+Előtte a tools/adatellenorzes.js fut; hibánál nincs generálás.
 Használat:
   python3 tools/artifact2gh.py <artifact index.html> <kimeneti mappa>   -> a három fájl a mappába
   python3 tools/artifact2gh.py --forras <letöltött index.html> <cél.html> -> tiszta, szerkeszthető artifact-forrás
@@ -20,6 +22,13 @@ if sys.argv[1] == '--forras':
 src, out = sys.argv[1], sys.argv[2]
 A = unwrap(open(src, encoding='utf-8').read())
 bad = []
+# adatellenőrzés (tools/adatellenorzes.js): hibánál nem generálunk
+import subprocess, shutil
+_ae = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'adatellenorzes.js')
+if os.path.exists(_ae) and shutil.which('node'):
+    r = subprocess.run(['node', _ae, src], capture_output=True, text=True)
+    print(r.stdout.strip())
+    if r.returncode: sys.exit('HIBA: az adatellenőrzés hibát talált, a generálás leállt')
 if A.count('<style>') != 1 or A.count('</style>') != 1: bad.append('nem pontosan egy <style> blokk van')
 if A.count('<script') != 1: bad.append('nem pontosan egy <script> blokk van')
 if bad: sys.exit('HIBA: ' + '; '.join(bad))
@@ -63,11 +72,16 @@ files = {'index.html': head + '\n' + body.strip('\n') + '\n<script src="radar.js
 for n, t in files.items():
     open(os.path.join(out, n), 'w', encoding='utf-8').write(t)
 stamp = re.search(r"var STAMP='([^']*)'", js).group(1)
-print('OK', 'STAMP=' + stamp, ' '.join('%s:%d' % (n, len(t.encode())) for n, t in files.items()))
+# sitemap a STAMP-pal; a forrás másolata a tools/forras/ mappába (visszaállításhoz, ha az artifact sérülne)
+open(os.path.join(out, 'sitemap.xml'), 'w', encoding='utf-8').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n<url><loc>' + pub + '</loc><lastmod>' + stamp + '</lastmod><changefreq>weekly</changefreq></url>\n</urlset>\n')
+_fd = os.path.join(out, 'tools', 'forras')
+if os.path.isdir(os.path.join(out, 'tools')):
+    os.makedirs(_fd, exist_ok=True)
+    open(os.path.join(_fd, 'index.html'), 'w', encoding='utf-8').write(A)
+print('OK', 'STAMP=' + stamp, ' '.join('%s:%d' % (n, len(t.encode())) for n, t in files.items()), '+ sitemap.xml, tools/forras/index.html')
 # hírcsatornák és levélsablonok (tools/levelek.js, Node kell hozzá)
 lv = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'levelek.js')
 if os.path.exists(lv):
-    import subprocess, shutil
     if shutil.which('node'):
         r = subprocess.run(['node', lv, out], capture_output=True, text=True)
         print((r.stdout or r.stderr).strip())

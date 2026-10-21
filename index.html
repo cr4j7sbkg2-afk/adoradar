@@ -173,6 +173,7 @@
         <label class="fx-f"><span>Dosszié</span><select class="sel" id="dosSel"></select></label>
         <label class="fx-f"><span>Időzítés</span><select class="sel" id="timeSel"><option value="">Bármikor</option><option value="date">Van ismert dátuma</option><option value="90">90 napon belüli dátum</option></select></label>
         <label class="fx-c"><input type="checkbox" id="todoTog"> Csak teendővel járó</label>
+        <label class="fx-c"><input type="checkbox" id="wlTog"> Csak a figyelőlistám <small id="wlTogN"></small><span class="fx-help">a csillaggal megjelölt változások</span></label>
         <label class="fx-c archtog"><input type="checkbox" id="archTog"> Archív jelzések (2018–2025) <small id="archTogN"></small><span class="fx-help">a megjelenéskori állapottal, halványabb kártyán</span></label>
       </div>
       <div class="f-active" id="fActive"></div>
@@ -293,11 +294,15 @@
     <p class="disc"><b>Tájékoztató prototípus.</b> A tartalom a BékésPartners elemzéseiből készült összefoglaló, nem minősül jogi vagy adótanácsadásnak. Állapot: <span data-stamp></span>.</p>
     <details class="mdet"><summary>Hogyan készül a radar, és mit érdemes tudni róla</summary>
       <div class="mdet-b">
-        <div><h3>Hogyan készül a radar</h3><p>Minden pont egy intézkedés, amelyet egy BékésPartners-elemzés azonosított. A státusz négy fokozatú: <b>bejelentés</b> (politikai bejelentés, normaszöveg nélkül), <b>tervezet</b> (társadalmi egyeztetésen), <b>elfogadva</b> (a szabály biztos, a hatása még előttünk) és <b>hatályos</b> (hatályos szabály, hatósági állásfoglalás vagy bírói gyakorlat). A szakterületi szeletek mérete a változások számát követi. Ahol egy változásnak előtörténete van, az „Útja” sor időrendben mutatja, melyik elemzés mit jelzett előre.</p></div>
-        <div><h3>Fontos tudnivaló</h3><p>Prototípus. A radar a BékésPartners 2026-os elemzéseiből és híreiből épül; a 2018–2025-ös anyagok archív rétegként, a megjelenéskori állapottal szerepelnek. Állapot: <span data-stamp></span>. A tartalom általános tájékoztatás, nem minősül jogi vagy adótanácsadásnak; a tervezetek és bejelentések szövege az elfogadásig változhat. Mérőkódot, sütit vagy külső szolgáltatást az oldal nem használ; a profil és a pipák csak az Ön böngészőjében tárolódnak.</p></div>
+        <div><h3>Hogyan készül a radar</h3><p>Minden pont egy intézkedés, amelyet egy BékésPartners-elemzés azonosított. A státusz négy fokozatú: <b>bejelentés</b> (politikai bejelentés, normaszöveg nélkül), <b>tervezet</b> (társadalmi egyeztetésen), <b>elfogadva</b> (a szabály biztos, a hatása még előttünk) és <b>hatályos</b> (hatályos szabály, hatósági állásfoglalás vagy bírói gyakorlat). A szakterületi szeletek mérete a változások számát követi. Ahol egy változásnak előtörténete van, az „Útja” sor időrendben mutatja, melyik elemzés mit jelzett előre. A részletpanel azt is megmondja, mi a következő jogalkotási lépés, mely változások függenek össze, és mikor néztük át utoljára a tételt; 90 nap után a tétel „ellenőrzendő” jelzést kap.</p></div>
+        <div><h3>Fontos tudnivaló</h3><p>Prototípus. A radar a BékésPartners 2026-os elemzéseiből és híreiből épül; a 2018–2025-ös anyagok archív rétegként, a megjelenéskori állapottal szerepelnek. Állapot: <span data-stamp></span>. A tartalom általános tájékoztatás, nem minősül jogi vagy adótanácsadásnak; a tervezetek és bejelentések szövege az elfogadásig változhat. Mérőkódot, sütit vagy külső szolgáltatást az oldal nem használ; a profil, a pipák és a figyelőlista csak az Ön böngészőjében tárolódnak.</p></div>
       </div>
     </details>
+    <details class="mdet" id="szoszedet"><summary>Szószedet: a radaron használt fogalmak</summary><dl class="gl-list" id="glList"></dl></details>
+    <details class="mdet" id="naplo"><summary>Frissítések naplója: mi változott a radaron</summary><ol class="upd" id="updList"></ol></details>
+    <p class="disc fb"><a id="fbLink" href="#">Pontatlanságot talált? Jelezze nekünk.</a> A radar a BékésPartners anyagait dolgozza fel; a hibákat a következő frissítésnél javítjuk.</p>
   </section>
+  <section class="onepage" id="onepage" aria-label="Egyoldalas összefoglaló nyomtatáshoz"></section>
 </main>
 
 <section class="band" id="ertesito" aria-labelledby="bandH">
@@ -391,6 +396,7 @@
   <div class="tour-b"><button type="button" class="linkbtn" id="tourSkip">Kihagyom</button><button type="button" class="tbtn solid" id="tourNext">Tovább</button></div>
 </div>
 <div class="perr" id="perr" role="alert" hidden>Az oldal egy része nem töltődött be. Frissítse az oldalt; ha a hiba megmarad, próbálja másik böngészőben.</div>
+<div class="glpop" id="glpop" role="tooltip" hidden><b id="glpopK"></b><span id="glpopT"></span></div>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 <a class="cv-mini" id="cvMini" href="#cvRes" hidden></a>
 <script src="radar.js" defer></script>

@@ -1,0 +1,38 @@
+# Naponta újragenerálja a hírcsatornákat és a levélsablonokat a radar.js adataiból, hogy a „30 napon belül”
+# emlékeztetők a radar frissítése nélkül is bekerüljenek. Csak akkor commitol, ha változott valami.
+# Figyelem: a GitHub 60 nap repó-inaktivitás után leállítja az ütemezett futást; ilyenkor az Actions fülön újra kell engedélyezni.
+name: Hírcsatorna napi frissítés
+on:
+  schedule:
+    - cron: '17 4 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+jobs:
+  frissit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Generálás
+        run: node tools/levelek.js .
+      - name: Commit és push, ha változott
+        id: commit
+        run: |
+          git add hircsatorna levelek
+          if git diff --cached --quiet; then echo "Nincs változás."; echo "changed=0" >> "$GITHUB_OUTPUT"; exit 0; fi
+          git config user.name "adoradar-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Hírcsatorna: napi frissítés $(date -u +%F)"
+          git push
+          echo "changed=1" >> "$GITHUB_OUTPUT"
+      - name: Pages újraépítés kérése
+        if: steps.commit.outputs.changed == '1'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${GITHUB_REPOSITORY}/pages/builds"

@@ -1,0 +1,16 @@
+# Havonta ellenőrzi, hogy a radar által hivatkozott bekespartners.com-cikkek élnek-e (a BP időnként átnevez cikkeket).
+name: Linkellenőrzés
+on:
+  schedule:
+    - cron: '23 5 1 * *'
+  workflow_dispatch:
+jobs:
+  linkek:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 tools/linkek.py
