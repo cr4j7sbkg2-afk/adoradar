@@ -265,6 +265,174 @@ var STQ=[
 ];
 
 /* =====================================================================
+   LEVÉLSABLONOK – a radar adataiból összeállított levelek és hírcsatornák.
+   Ugyanezt használja a weboldal előnézete és a GitHub-build (tools/levelek.js).
+   DOM-mentes, csak az ADATOK blokkra támaszkodik. A szövegeken csak indokolt esetben változtass.
+   RELMAP: az archív cikkek „rel” témája → az élő jelzés, amelynek az előzménye.
+   ===================================================================== */
+var RELMAP={'bvk-szja':'v4',kata:'k1',gmt:'e1',usa:'w7',csoportfin:'l1',uae:'d1',kotelesresz:'j1',lakasafa:'a1'};
+var LV=(function(){
+  var MON=['január','február','március','április','május','június','július','augusztus','szeptember','október','november','december'];
+  var MIN=['Januárban','Februárban','Márciusban','Áprilisban','Májusban','Júniusban','Júliusban','Augusztusban','Szeptemberben','Októberben','Novemberben','Decemberben'];
+  var KL={'new':'Új a radaron',hist:'Fejlemény',mv:'Továbblépett',due:'30 napon belül'};
+  var C={navy:'#13407D',blue:'#006BB3',ink:'#323232',mut:'#5F6368',line:'#D9D9D9',bg:'#F0F0F0',seg:['#EBA720','#50C088','#864460','#6393A1']};
+  var F='font-family:Montserrat,Arial,Helvetica,sans-serif;';
+  var SG={};SIG.forEach(function(s){SG[s.id]=s});
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+  function d(iso){var a=iso.split('-');return a[0]+'.'+a[1]+'.'+a[2]+'.'}
+  function ym(iso){var a=iso.split('-');return a[0]+'. '+MON[+a[1]-1]}
+  function tt(iso){var a=iso.split('-').map(Number);return Date.UTC(a[0],a[1]-1,a[2])}
+  function add(iso,n){return new Date(tt(iso)+n*864e5).toISOString().slice(0,10)}
+  function num(x,dig){return Number(x).toLocaleString('hu-HU',{minimumFractionDigits:dig||0,maximumFractionDigits:dig||0})}
+  function money(m){return Math.abs(m)>=1000?(m/1000).toLocaleString('hu-HU',{maximumFractionDigits:2})+' Mrd Ft':m.toLocaleString('hu-HU',{maximumFractionDigits:1})+' M Ft'}
+  function prof(k){for(var i=0;i<PROF.length;i++)if(PROF[i].k===k)return PROF[i];return PROF[0]}
+  function vis(s,k){return k==='all'||s.who.indexOf(k)>-1}
+  function cal(id){return CAL.filter(function(c){return c.sig===id}).sort(function(a,b){return a.d<b.d?-1:1})}
+  function next(id,from){return cal(id).filter(function(c){return c.d>=from})[0]}
+  function who(s){return s.who.map(function(k){return prof(k).s}).join(', ')}
+  function url(k,hash){return PUBLIC_URL+(k&&k!=='all'?'?profil='+k:'')+(hash?'#'+hash:'')}
+  function first(x){var m=String(x).match(/^.*?[.!?](\s|$)/);return m?m[0].trim():String(x)}
+  function prior(id){var o=[];ARCH.forEach(function(a){(a.rel||[]).forEach(function(r){if(RELMAP[r[0]]===id)o.push({d:a.d,t:a.t,u:BP+a.s+'/',x:r[1]})})});return o.sort(function(a,b){return a.d<b.d?-1:1})}
+  /* események: új jelzés, fejlemény (hist), státuszváltás (mv), 30 napon belüli határidő */
+  function events(k,from,to){
+    var E=[],G={};
+    SIG.forEach(function(s){
+      if(!vis(s,k))return;
+      var sd=SRC[s.src]?SRC[s.src].d:'';
+      if(sd>=from&&sd<=to){if(!G[s.src]){G[s.src]={kind:'new',d:sd,src:s.src,sigs:[]};E.push(G[s.src])}G[s.src].sigs.push(s)}
+      (s.hist||[]).forEach(function(h){if(h[0]>=from&&h[0]<=to&&!(h[0]>=add(sd,-7)&&h[0]<=sd&&!(s.mv&&s.mv[1]===h[0])))E.push({kind:(s.mv&&s.mv[1]===h[0])?'mv':'hist',d:h[0],s:s,txt:h[1]})});
+      if(s.mv&&s.mv[1]>=from&&s.mv[1]<=to&&!(s.hist||[]).some(function(h){return h[0]===s.mv[1]}))E.push({kind:'mv',d:s.mv[1],s:s,txt:STAT[s.mv[0]].l+' → '+STAT[s.st].l});
+    });
+    CAL.forEach(function(c){if(!(k==='all'||c.who.indexOf(k)>-1)||!SG[c.sig])return;var r=add(c.d,-30);if(r>=from&&r<=to&&c.d>to)E.push({kind:'due',d:r,s:SG[c.sig],c:c,txt:d(c.d)+': '+c.t})});
+    E.forEach(function(e){if(e.kind!=='new')return;e.sigs.sort(function(a,b){return b.st-a.st||(b.i==='teendo')-(a.i==='teendo')||SIG.indexOf(a)-SIG.indexOf(b)});e.s=e.sigs[0];
+      e.txt=e.sigs.length===1?first(e.s.x):e.sigs.slice(0,3).map(function(x){return x.t}).join(' · ')+(e.sigs.length>3?' · és még '+(e.sigs.length-3):'')});
+    return E.sort(function(a,b){return a.d<b.d?1:a.d>b.d?-1:0});
+  }
+  function etitle(e){return e.kind==='new'&&e.sigs.length>1?(SRC[e.src]?SRC[e.src].t:e.s.t):e.s.t}
+  function elink(k,e){return e.kind==='new'&&e.sigs.length>1?url(k,'src-'+e.src):url(k,'v-'+e.s.id)}
+  function top3(k){
+    return SIG.filter(function(s){return vis(s,k)}).map(function(s){
+      var nx=next(s.id,STAMP),sc=(nx?(tt(nx.d)-tt(STAMP)<=120*864e5?4:2):0)+(s.i==='teendo'?2:0)+(s.i==='teher'?1:0)+(s.st>=3?1:0)+((SRC[s.src]&&SRC[s.src].d>=add(STAMP,-60))?1:0)+(s.mv?1:0);
+      return {s:s,sc:sc};
+    }).sort(function(a,b){return b.sc-a.sc||SIG.indexOf(a.s)-SIG.indexOf(b.s)}).slice(0,3).map(function(x){return x.s});
+  }
+  function example(k){
+    /* a CVP.kft (BP-elemzés példája) és a gyorsbecslő alapértéke szerint */
+    if(k==='kkv'||k==='nagy'){var st=1200,avg=240,v=(st+2*avg/0.15)/3;return 'Egy nyereséges Kft. a BékésPartners elemzésének példájában: '+money(st)+' saját tőke, évi '+money(avg)+' adózott eredmény. A vagyonadó-tervezet képlete szerint a részesedés értéke kb. <b>'+money(v)+'</b>, a könyv szerinti érték '+num(v/st,2)+'-szerese.'}
+    if(k==='mag'||k==='bvk'||k==='kulf'||k==='all'){var n=6500,tax=Math.max(0,n-1000)*0.01;return 'Egy 6,5 Mrd Ft nettó vagyonú magánszemélynél a tervezet kulcsaival az éves vagyonadó kb. <b>'+money(tax)+'</b>: az 1 Mrd Ft-os mentes sáv feletti rész 1%-a. Az értékelési szabályok ezt érdemben módosíthatják.'}
+    return '';
+  }
+  /* építőelemek: 600 px-es, táblázatos, inline stílusú levél */
+  function h2(x){return '<tr><td style="padding:24px 28px 0;'+F+'"><div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:'+C.mut+'">'+esc(x)+'</div></td></tr>'}
+  function p(x,st){return '<tr><td style="padding:8px 28px 0;'+F+'font-size:15px;line-height:1.6;color:'+C.ink+';'+(st||'')+'">'+x+'</td></tr>'}
+  function btn(label,href){return '<tr><td style="padding:20px 28px 0"><a href="'+esc(href)+'" style="display:inline-block;background:'+C.navy+';color:#ffffff;text-decoration:none;'+F+'font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:12px 18px">'+esc(label)+'</a></td></tr>'}
+  function item(o,k){
+    var s=o.s,P=PRAC[s.p];
+    return '<tr><td style="padding:14px 28px 0"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="border-left:4px solid '+P.c+';padding:2px 0 2px 12px;'+F+'">'+
+      '<div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:'+C.mut+'">'+esc(o.meta)+'</div>'+
+      '<div style="font-size:16px;font-weight:600;line-height:1.35;margin-top:3px"><a href="'+esc(o.href||url(k,'v-'+s.id))+'" style="color:'+C.navy+';text-decoration:none">'+esc(o.title||s.t)+'</a></div>'+
+      '<div style="font-size:14px;line-height:1.55;color:'+C.ink+';margin-top:3px">'+esc(o.txt)+'</div></td></tr></table></td></tr>';
+  }
+  function person(){
+    return '<tr><td style="padding:26px 28px 0"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid '+C.line+'"><tr>'+
+      '<td style="padding-top:16px;'+F+'font-size:14px;line-height:1.6;color:'+C.ink+'"><b>[Tanácsadó neve]</b> · [szakterület]<br>[közvetlen telefonszám] · [e-mail-cím]<br><span style="color:'+C.mut+'">Kérdése van? Válaszoljon erre a levélre, személyesen olvasom.</span></td>'+
+      '<td width="76" valign="top" style="padding-top:16px"><div style="width:64px;height:64px;background:'+C.bg+';border:1px dashed '+C.line+';'+F+'font-size:10px;color:'+C.mut+';text-align:center;line-height:64px">[fotó]</div></td></tr></table></td></tr>';
+  }
+  function shell(o){
+    var stripe='<tr><td><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'+C.seg.map(function(c){return '<td height="5" style="height:5px;background:'+c+';font-size:0;line-height:0">&nbsp;</td>'}).join('')+'</tr></table></td></tr>';
+    return '<div style="display:none;max-height:0;overflow:hidden">'+esc(o.pre)+'</div>'+
+      '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:'+C.bg+'"><tr><td align="center" style="padding:24px 10px">'+
+      '<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;background:#ffffff">'+
+      '<tr><td style="background:'+C.navy+';padding:20px 28px;'+F+'color:#ffffff"><div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase">BékésPartners · Adóradar</div>'+
+      '<div style="font-size:22px;font-weight:700;line-height:1.3;margin-top:6px">'+esc(o.title)+'</div>'+(o.sub?'<div style="font-size:13px;margin-top:4px">'+esc(o.sub)+'</div>':'')+'</td></tr>'+stripe+
+      o.body+person()+
+      '<tr><td style="padding:22px 28px 26px;'+F+'font-size:12px;line-height:1.55;color:'+C.mut+'">Ezt a levelet azért kapja, mert feliratkozott az Adóradar-értesítőre ('+esc(o.why)+'). '+
+      '<a href="[beállítások linkje]" style="color:'+C.blue+'">Beállítások</a> · <a href="[leiratkozás linkje]" style="color:'+C.blue+'">Leiratkozás</a><br>'+
+      'A levél általános tájékoztatás a BékésPartners elemzései alapján, nem minősül jogi vagy adótanácsadásnak.</td></tr></table></td></tr></table>';
+  }
+  /* riasztás: státuszváltás vagy új jelzés, 5–8 sorban */
+  function alert(k,e){
+    if(e.kind==='new'&&e.sigs.length>1)return alertGroup(k,e);
+    var s=e.s,P=prof(k),nx=next(s.id,STAMP),pr=prior(s.id),pa=pr[pr.length-1];
+    var subject=(e.kind==='mv'?'Továbblépett: ':e.kind==='new'?'Új a radaron: ':'Fejlemény: ')+s.t+(e.kind==='mv'?' – most '+STAT[s.st].l.toLowerCase():'');
+    var todo=nx?'Jegyezze fel: '+d(nx.d)+' – '+nx.t+'.':s.i==='teendo'?'Teendő jár vele: a lépéseket a radar teendőlistáján találja.':'Most nincs azonnali teendő; szólunk, ha a szabály továbblép.';
+    var rows=[['Mi változott?',d(e.d)+': '+e.txt],['Hol tart?',STAT[s.st].l+(s.mv?' (korábban: '+STAT[s.mv[0]].l+')':'')],['Kit érint?',who(s)],['Mikortól?',s.w],['Mit tegyen?',todo]];
+    var body=p('<b style="font-size:20px;color:'+PRAC[s.p].t+'">'+esc(s.fig)+'</b>','padding-top:20px')+
+      '<tr><td style="padding:10px 28px 0"><table role="presentation" width="100%" cellpadding="0" cellspacing="0">'+rows.map(function(r){return '<tr><td valign="top" width="118" style="'+F+'font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:'+C.mut+';padding:8px 10px 8px 0;border-top:1px solid '+C.line+'">'+r[0]+'</td><td style="'+F+'font-size:15px;line-height:1.5;color:'+C.ink+';padding:8px 0;border-top:1px solid '+C.line+'">'+esc(r[1])+'</td></tr>'}).join('')+'</table></td></tr>'+
+      (pa?p('<span style="font-size:13px;color:'+C.mut+'"><b>Előzmény az archívumból</b> · '+d(pa.d)+': '+esc(pa.x)+'</span>'):'')+
+      btn('Megnézem a radaron',url(k,'v-'+s.id));
+    return {subject:subject,pre:first(s.x),html:shell({pre:first(s.x),title:s.t,sub:(e.kind==='mv'?'Státuszváltás':'Riasztás')+' · '+P.l,body:body,why:'riasztás · '+P.l})};
+  }
+  function alertGroup(k,e){
+    var P=prof(k),S=SRC[e.src],L=e.sigs,lead=e.s,nx=null;L.some(function(s){nx=next(s.id,STAMP);return !!nx});
+    var subject=L.length+' új változás: '+(S?S.t:lead.t);
+    var body=p('A BékésPartners '+d(e.d)+'-i elemzése '+L.length+' olyan változást azonosított, amely a(z) „'+esc(P.l)+'” profilt érinti.','padding-top:20px')+
+      L.slice(0,5).map(function(s){return item({s:s,meta:STAT[s.st].l+' · '+s.fig,txt:s.w},k)}).join('')+
+      (L.length>5?p('<span style="color:'+C.mut+'">és még '+(L.length-5)+' változás a radaron.</span>'):'')+
+      p('<b>Mit tegyen?</b> '+esc(nx?'Jegyezze fel: '+d(nx.d)+' – '+nx.t+'.':'Most nincs azonnali határidő; a részletes szabály a törvényjavaslatból derül ki, és szólunk, ha továbblép.'))+
+      btn('Megnézem a radaron',url(k,'src-'+e.src));
+    return {subject:subject,pre:L.slice(0,3).map(function(s){return s.fig}).join(' · '),html:shell({pre:L.slice(0,3).map(function(s){return s.fig}).join(' · '),title:S?S.t:lead.t,sub:'Riasztás · '+L.length+' új változás · '+P.l,body:body,why:'riasztás · '+P.l})};
+  }
+  function alertEvents(k){return events(k,add(STAMP,-365),STAMP).filter(function(e){return e.kind==='mv'||e.kind==='new'})}
+  /* havi összefoglaló */
+  function digest(k,mo){
+    var P=prof(k),a=mo.split('-').map(Number),from=mo+'-01',end=new Date(Date.UTC(a[0],a[1],0)).toISOString().slice(0,10),to=end<STAMP?end:STAMP;
+    var E=events(k,from,to).filter(function(e){return e.kind!=='due'}),EL=E.slice(0,8);
+    var D=CAL.filter(function(c){return (k==='all'||c.who.indexOf(k)>-1)&&c.d>=to&&c.d<=add(to,60)}).sort(function(x,y){return x.d<y.d?-1:1});
+    var top=E.filter(function(e){return e.kind==='mv'})[0]||E.filter(function(e){return e.kind==='new'})[0]||E[0];
+    var subject=!top?'Adóradar – '+ym(from):(top.kind==='new'&&top.sigs.length>1&&SRC[top.src])?SRC[top.src].t+': '+top.sigs.length+' változás a profiljára':top.s.fig+': '+top.s.t;
+    var nsig=0;E.forEach(function(e){nsig+=e.kind==='new'?e.sigs.length:0});
+    var cnt={};E.forEach(function(e){cnt[e.s.dos]=(cnt[e.s.dos]||0)+1});var dz=Object.keys(cnt).sort(function(x,y){return cnt[y]-cnt[x]})[0];
+    var pa=null;E.some(function(e){var x=prior(e.s.id);if(x.length){pa={e:e,a:x[x.length-1]};return true}return false});
+    var acts=(ACT[k]||ACT.all).slice(0,3),ex=example(k),nmv=E.filter(function(e){return e.kind==='mv'}).length;
+    var body=p(MIN[a[1]-1]+' '+(nsig?nsig+' új változás került a radarra':'nem került új változás a radarra')+' a(z) „'+esc(P.l)+'” profilban'+(nmv?', és '+nmv+' változás státuszt váltott':'')+'. A következő 60 napban '+D.length+' határidő esik.','padding-top:20px')+
+      h2('A radar mozgásai')+(EL.length?EL.map(function(e){return item({s:e.s,meta:KL[e.kind]+' · '+d(e.d)+(e.kind==='new'&&e.sigs.length>1?' · '+e.sigs.length+' változás':' · '+STAT[e.s.st].l),title:etitle(e),href:elink(k,e),txt:e.txt},k)}).join(''):p('Ebben a hónapban nem volt mozgás a profiljában.'))+
+      h2('Határidők a következő 60 napban')+(D.length?p('<table role="presentation" width="100%" cellpadding="0" cellspacing="0">'+D.map(function(c){return '<tr><td valign="top" width="96" style="'+F+'font-size:14px;font-weight:700;color:'+C.navy+';padding:6px 8px 6px 0;border-top:1px solid '+C.line+'">'+d(c.d)+'</td><td style="'+F+'font-size:14px;line-height:1.5;color:'+C.ink+';padding:6px 0;border-top:1px solid '+C.line+'">'+esc(c.t)+'</td></tr>'}).join('')+'</table>'):p('A következő 60 napban nincs ismert határidő a profiljában.'))+
+      (ex?h2('Egy számpélda')+p(ex):'')+
+      (dz&&DOSX[dz]?h2('A BékésPartners álláspontja · '+DOS[dz].l)+p(esc(DOSX[dz].take)):'')+
+      (pa?h2('Előzmény az archívumból')+p(d(pa.a.d)+' · <a href="'+esc(pa.a.u)+'" style="color:'+C.blue+'">'+esc(pa.a.t)+'</a><br><span style="color:'+C.mut+'">'+esc(pa.a.x)+'</span>'):'')+
+      h2('Mit tegyen most?')+p('<ol style="margin:0;padding-left:20px">'+acts.map(function(x){return '<li style="margin:0 0 6px">'+esc(x)+'</li>'}).join('')+'</ol>')+
+      btn('Saját nézetem a radaron',url(k));
+    return {subject:subject,pre:nsig+' új változás, '+D.length+' közelgő határidő · '+P.l,html:shell({pre:nsig+' új változás, '+D.length+' közelgő határidő',title:'Adóradar · '+ym(from),sub:'Havi összefoglaló · '+P.l,body:body,why:'havi összefoglaló · '+P.l})};
+  }
+  /* üdvözlő sorozat, 3 levél két hét alatt */
+  function welcome(n,k){
+    var P=prof(k),cta=PCTA[k]||PCTA.all,o;
+    if(n===1){
+      o={subject:'Így olvassa az Adóradart',title:'Így olvassa az Adóradart',sub:'Üdvözlő levél 1/3 · '+P.l,body:
+        p('Köszönjük, hogy feliratkozott. Az Adóradar a BékésPartners elemzéseiben azonosított adó- és jogszabályváltozásokat egy helyen mutatja: hol tart a jogalkotásban, kit érint, mikortól, és mit érdemes tenni.','padding-top:20px')+
+        h2('A radar négy gyűrűje')+p('<b>Középen</b> a már hatályos szabályok, majd az <b>elfogadott</b>, a <b>tervezett</b> és kívül a csak <b>bejelentett</b> változások. Ha egy pont befelé lép, a szabály közelebb került ahhoz, hogy alkalmazni kelljen.')+
+        h2('Az Ön nézete')+p('A(z) „'+esc(P.l)+'” profilra szűrt nézetben a változások listája, a pipálható teendőlista és a határidő-naptár is Önre szabott. A határidőket egy kattintással a saját naptárába is felveheti.')+
+        btn('Megnyitom a saját nézetemet',url(k))};
+    }else if(n===2){
+      var T=top3(k),all=SIG.filter(function(s){return vis(s,k)}).length;
+      o={subject:'Ez a három változás érinti leginkább · '+P.s,title:'A 3 legfontosabb változás az Ön profiljára',sub:'Üdvözlő levél 2/3 · '+P.l,body:
+        p('A radar '+all+' változást követ a(z) „'+esc(P.l)+'” profilban. Ez a három a legsürgősebb: közeli határidő, teendő vagy már biztos szabály áll mögöttük.','padding-top:20px')+
+        T.map(function(s){var nx=next(s.id,STAMP);return item({s:s,meta:STAT[s.st].l+' · '+s.fig,txt:first(s.x)+(nx?' Határidő: '+d(nx.d)+'.':'')},k)}).join('')+
+        btn('Mind a '+all+' változás',url(k,'valtozasok'))};
+    }else{
+      o={subject:'Bemutatkozik a tanácsadója',title:'[Tanácsadó neve], az Ön kapcsolattartója',sub:'Üdvözlő levél 3/3 · '+P.l,body:
+        p('<span style="color:#9A6200">[2–3 mondat bemutatkozás: szakterület, tapasztalat, kikkel dolgozik.]</span>','padding-top:20px')+
+        p('A radar megmutatja, mi változik. Hogy ez az Ön helyzetében mit jelent, azt egy rövid beszélgetésben érdemes átnézni.')+
+        btn('20 perces hívás egyeztetése','mailto:'+MAIL+'?subject='+encodeURIComponent('Adóradar – 20 perces hívás ('+P.s+')'))+
+        p('<span style="font-size:13px;color:'+C.mut+'">Ha inkább írásban kérdezne, válaszoljon erre a levélre. Kapcsolódó szolgáltatásunk: '+esc(cta[0])+'.</span>')};
+    }
+    return {subject:o.subject,pre:o.sub,html:shell({pre:o.sub,title:o.title,sub:o.sub,body:o.body,why:'üdvözlő sorozat · '+P.l})};
+  }
+  /* hírcsatorna-tételek (RSS/JSON) */
+  function feed(k,alertsOnly){
+    return events(k,add(STAMP,-365),STAMP).filter(function(e){return !alertsOnly||e.kind==='mv'||e.kind==='new'}).slice(0,60).map(function(e){
+      var s=e.s,nx=next(s.id,STAMP);
+      var grp=e.kind==='new'&&e.sigs.length>1;
+      return {id:'adoradar-'+e.kind+'-'+(grp?e.src:s.id)+'-'+e.d+(e.c?'-'+CAL.indexOf(e.c):''),d:e.d,title:(grp?e.sigs.length+' új változás: ':KL[e.kind]+': ')+(e.kind==='due'?e.c.s+' – '+s.t:etitle(e)),url:elink(k,e),
+        tags:[KL[e.kind],STAT[s.st].l,PRAC[s.p].l].concat(s.who.map(function(w){return prof(w).s})),
+        html:grp?'<p><b>'+esc(KL[e.kind])+' · '+d(e.d)+'</b></p><ul>'+e.sigs.map(function(x){return '<li>'+esc(x.t)+' ('+esc(STAT[x.st].l)+'; '+esc(x.w)+')</li>'}).join('')+'</ul><p><a href="'+esc(elink(k,e))+'">Megnézem a radaron</a></p>':'<p><b>'+esc(KL[e.kind])+' · '+d(e.d)+'</b><br>'+esc(e.txt)+'</p><p>Hol tart: '+esc(STAT[s.st].l)+'<br>Kit érint: '+esc(who(s))+'<br>Mikortól: '+esc(s.w)+(nx?'<br>Következő dátum: '+d(nx.d)+' – '+esc(nx.t):'')+'</p><p><a href="'+esc(url(k,'v-'+s.id))+'">Megnézem a radaron</a></p>'};
+    });
+  }
+  return {etitle:etitle,elink:elink,alert:alert,alertEvents:alertEvents,digest:digest,welcome:welcome,feed:feed,events:events,prior:prior,top3:top3,KL:KL,url:url,d:d,ym:ym,first:first};
+})();
+
+/* =====================================================================
    MOTOR – innen nem kell szerkeszteni
    ===================================================================== */
 var $=function(id){return document.getElementById(id)};
@@ -465,7 +633,8 @@ function buildProf(){
     return '<button type="button" class="pf'+(p.k==='all'?' pf-all':'')+'" data-k="'+p.k+'" aria-pressed="false"><b>'+(p.k==='all'?'Mutasd mindet':esc(p.l))+'</b><span>'+esc(p.h)+'</span><em>'+n+' változás</em></button>'}).join('');
   Array.prototype.forEach.call($('prof').querySelectorAll('.pf'),function(b){b.addEventListener('click',function(){profClick(b.getAttribute('data-k'))})});
   $('pfMulti').addEventListener('click',function(){MULTI=!MULTI;this.setAttribute('aria-pressed',String(MULTI));if(!MULTI&&pk().length>1)setProf(pk()[0]);else markProf()});
-  $('sProf').innerHTML=PROF.map(function(p){return '<option value="'+p.k+'">'+(p.k==='all'?'Minden változás':esc(p.l))+'</option>'}).join('');
+  $('sProfs').innerHTML=PROF.filter(function(p){return p.k!=='all'}).map(function(p){return '<label><input type="checkbox" value="'+p.k+'"><span>'+esc(p.s)+'</span></label>'}).join('');
+  Array.prototype.forEach.call($('sProfs').querySelectorAll('input'),function(c){c.addEventListener('change',renderMailPrev)});
   $('pchip').addEventListener('click',function(){scrollToEl($('radar'));setTimeout(function(){var b=$('prof').querySelector('[aria-pressed="true"]')||$('prof').querySelector('.pf');try{b.focus({preventScroll:true})}catch(e){}},reduce?0:450)});
 }
 var MULTI=false;
@@ -478,9 +647,9 @@ function profClick(k){
 }
 function setProf(k){
   k=normProf(k);state.prof=k;if(k.indexOf(',')>-1)MULTI=true;
-  var K=pk();$('sProf').value=K[0]||'all';markProf();
+  var K=pk();Array.prototype.forEach.call($('sProfs').querySelectorAll('input'),function(c){c.checked=K.indexOf(c.value)>-1});markProf();
   $('pchipV').textContent=curProf().s;$('pchip').classList.toggle('on',k!=='all');
-  LS.set('prof',k);syncURL();
+  LS.set('prof',k);syncURL();if(typeof renderMailPrev==='function'&&$('mpBody'))renderMailPrev();
   var d=PDEF[K[0]||'all'];if(!vis(SIGM[d])){var f=SIG.filter(vis)[0];d=f?f.id:state.sel}select(d);
   update();
 }
@@ -890,9 +1059,11 @@ function buildCV(){
 
 /* értesítő (prototípus: nem küld adatot) */
 $('sform').addEventListener('submit',function(e){
-  e.preventDefault();var m=$('sEmail').value.trim();
-  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m)){$('smsg').textContent='Adjon meg érvényes e-mail-címet, például nev@ceg.hu.';return}
-  $('smsg').textContent='Köszönjük. Ez prototípus, a feliratkozás itt még nem rögzít adatot; az éles változatban '+($('sProf').value==='all'?'minden változásról':'a(z) „'+profOf($('sProf').value).l+'” profil változásairól')+' kap értesítést.';
+  e.preventDefault();var m=$('sEmail').value.trim(),K=prefProfs(),f=(document.querySelector('input[name="sFreq"]:checked')||{}).value;
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m)){$('smsg').textContent='Adjon meg érvényes e-mail-címet, például nev@ceg.hu.';$('sEmail').focus();return}
+  if(!$('sOk').checked){$('smsg').textContent='A feliratkozáshoz kérjük, jelölje be a hozzájárulást.';$('sOk').focus();return}
+  var fl={alert:'riasztást',month:'havi összefoglalót',both:'riasztást és havi összefoglalót'}[f]||'riasztást';
+  $('smsg').textContent='Köszönjük. Ez prototípus, a feliratkozás itt még nem rögzít adatot. Az éles változatban '+fl+' kapna '+(K.length?K.map(function(k){return '„'+profOf(k).s+'”'}).join(', ')+' profilra':'minden változásról')+', és az első levél az üdvözlő sorozat 1. levele lenne.';
 });
 
 /* márkasáv árnyéka, lapon belüli navigáció */
@@ -975,6 +1146,7 @@ function detailHTML(s){
     '<dl class="sc-meta dw-meta" style="--pc:'+P.c+'"><dt>Kit érint</dt><dd>'+whoHTML(s)+'</dd><dt>Mikor</dt><dd>'+esc(s.w)+'</dd><dt>Hatás</dt><dd class="imp-dd">'+impSVG(s.i,P.c,'#ffffff',13)+esc(IMP[s.i])+'</dd>'+
     '<dt>Forrás</dt><dd class="sc-src">'+srcLink(s.src)+alsoHTML(s,'sc-also')+'<span class="ls">Utolsó forrás: '+fmtD(ld)+'</span></dd>'+mvHTML(s)+(s.hist?'<dt>Útja</dt><dd>'+histHTML(s,'hist light')+'</dd>':'')+'</dl>'+
     (cal.length?'<div class="dw-cal"><h3>Dátumok</h3><ul>'+cal.map(function(c){var n=days(c.d);return '<li><div><time datetime="'+c.d+'">'+fmtD(c.d,c.prec)+'</time><span class="cdn'+(n>=0&&n<=90?' soon':'')+'">'+(c.prec==='m'?'hónap pontossággal':cdTxt(n))+'</span></div><p>'+esc(c.t)+'</p>'+(n>=0?calMenu(c):'')+'</li>'}).join('')+'</ul></div>':'')+
+    (function(){var R=LV.prior(s.id);if(!R.length)return '';return '<div class="dw-prior"><h3>Előzmények a BékésPartners archívumából</h3><ul>'+R.slice(-4).reverse().map(function(r){return '<li><time datetime="'+r.d+'">'+fmtD(r.d)+'</time><a href="'+esc(r.u)+'" target="_blank" rel="noopener noreferrer">'+esc(r.t)+' ↗</a><p>'+esc(r.x)+'</p></li>'}).join('')+'</ul>'+(R.length>4?'<p class="fine">További '+(R.length-4)+' korábbi anyag az Elemzések 2018– részben.</p>':'')+'</div>'})()+
     (s.arch?'<p class="dw-arch">A megjelenéskori állapotot mutatja; a mai hatályosságot nem vizsgáltuk.</p>':'')+
     '<div class="dw-act">'+(s.tool?'<a class="tbtn" '+linkAttrs(toolUrl(s.tool[1]))+'>'+esc(s.tool[0])+'</a>':'')+
     '<button type="button" class="tbtn" data-copy="v-'+s.id+'">Link másolása</button>'+
@@ -1122,22 +1294,29 @@ function route(first){
   var h='';try{h=decodeURIComponent((location.hash||'').slice(1))}catch(e){}
   if(!h)return;
   if(h.indexOf('v-')===0){if(SIGM[h.slice(2)])openDetail(h.slice(2),{noHash:true});return}
+  if(h.indexOf('src-')===0){if(SRC[h.slice(4)])setTimeout(function(){gotoSrc(h.slice(4))},first?350:0);return}
   if(/^dz-|^dossziek$|^elemzesek$/.test(h)){needDz();needArc()}
   var e=$(h);if(!e)return;
   setTimeout(function(){scrollToEl(e);if(/^dz-/.test(h)){e.classList.remove('flash');void e.offsetWidth;e.classList.add('flash')}},first?350:0);
 }
 
 /* ---------- v4: példalevél ---------- */
-function buildSample(){
-  var L=SIG.filter(function(s){return s.hist&&s.hist.length}).sort(function(a,b){return a.hist[a.hist.length-1][0]<b.hist[b.hist.length-1][0]?1:-1});
-  var s=L[0];if(!s){$('sample').textContent='';return}
-  var h=s.hist[s.hist.length-1];
-  $('sample').innerHTML='<div class="sl"><div class="sl-h"><span>Tárgy</span><b>Adóradar: továbblépett – '+esc(s.t)+'</b></div>'+
-    '<p><b>Mi történt?</b> '+fmtD(h[0])+': '+esc(h[1])+'</p><p><b>Hol tart most?</b> '+STAT[s.st].l+'. '+esc(s.w)+'</p>'+
-    '<p><b>Kit érint?</b> '+s.who.map(function(k){return esc(profOf(k).s)}).join(', ')+'</p><p><b>Részletek</b> a radaron és a BékésPartners elemzésében.</p>'+
-    '<small>Példa a radar mostani adataiból. Az éles levél tartalmát a BékésPartners szerkeszti.</small></div>';
+var MP='alert';
+function prefProfs(){return Array.prototype.filter.call($('sProfs').querySelectorAll('input'),function(c){return c.checked}).map(function(c){return c.value})}
+function renderMailPrev(){
+  var K=prefProfs(),k=K[0]||'all',P=profOf(k),r;
+  if(MP==='alert'){var E=LV.alertEvents(k);r=E.length?LV.alert(k,E.filter(function(e){return e.kind==='mv'})[0]||E[0]):null}
+  else if(MP==='month')r=LV.digest(k,STAMP.slice(0,7));
+  else r=LV.welcome(+MP.slice(1),k);
+  $('mpFor').textContent=' · '+P.l+(K.length>1?' (az első kijelölt profil)':'');
+  $('mpSubj').innerHTML=r?'<span>Tárgy</span><b>'+esc(r.subject)+'</b><em>'+esc(r.pre)+'</em>':'';
+  $('mpBody').innerHTML=r?r.html:'<p class="empty">Ehhez a profilhoz az elmúlt évben nem volt riasztásra okot adó esemény.</p>';
+  $('mpFeed').href=PUBLIC_URL+'hircsatorna/'+k+'.xml';
 }
-
+function buildSample(){
+  Array.prototype.forEach.call(document.querySelectorAll('#mprev [data-mp]'),function(b){b.addEventListener('click',function(){MP=b.getAttribute('data-mp');Array.prototype.forEach.call(document.querySelectorAll('#mprev [data-mp]'),function(x){x.setAttribute('aria-pressed',String(x===b))});renderMailPrev()})});
+  renderMailPrev();
+}
 /* ---------- v5: „Mi változott?” kiemelés, nyomvonal ---------- */
 var TODAY=new Date(today0()).toISOString().slice(0,10),VISIT_PREV=null;
 (function(){var last=LS.get('visit');if(last&&last!==TODAY){VISIT_PREV=last;LS.set('visitPrev',last);LS.set('visit',TODAY)}else if(last===TODAY){VISIT_PREV=LS.get('visitPrev')}else LS.set('visit',TODAY)})();

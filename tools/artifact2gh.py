@@ -1,4 +1,4 @@
-"""Adóradar: az artifact index.html-jéből a GitHub Pages-változat (index.html + radar.css + radar.js).
+"""Adóradar: az artifact index.html-jéből a GitHub Pages-változat (index.html + radar.css + radar.js),\nvalamint a tools/levelek.js-sel a hírcsatornák (hircsatorna/) és a levélsablonok (levelek/).
 Használat:
   python3 tools/artifact2gh.py <artifact index.html> <kimeneti mappa>   -> a három fájl a mappába
   python3 tools/artifact2gh.py --forras <letöltött index.html> <cél.html> -> tiszta, szerkeszthető artifact-forrás
@@ -64,3 +64,13 @@ for n, t in files.items():
     open(os.path.join(out, n), 'w', encoding='utf-8').write(t)
 stamp = re.search(r"var STAMP='([^']*)'", js).group(1)
 print('OK', 'STAMP=' + stamp, ' '.join('%s:%d' % (n, len(t.encode())) for n, t in files.items()))
+# hírcsatornák és levélsablonok (tools/levelek.js, Node kell hozzá)
+lv = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'levelek.js')
+if os.path.exists(lv):
+    import subprocess, shutil
+    if shutil.which('node'):
+        r = subprocess.run(['node', lv, out], capture_output=True, text=True)
+        print((r.stdout or r.stderr).strip())
+        if r.returncode: sys.exit('HIBA: a hírcsatornák/levelek generálása nem sikerült')
+    else:
+        print('FIGYELEM: nincs Node, a hírcsatornák és levelek nem frissültek')

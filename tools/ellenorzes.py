@@ -37,5 +37,14 @@ with sync_playwright() as p:
         if not j['ics']: hibak.append(f'{w}px: hiányzik a naptárexport')
     b.close()
 srv.shutdown()
+# hírcsatornák és levélsablonok
+import xml.etree.ElementTree as ET
+try:
+    n = len(ET.parse(os.path.join(D, 'hircsatorna', 'all.xml')).findall('./channel/item'))
+    print('hírcsatorna all.xml:', n, 'tétel')
+    if not n: hibak.append('üres a hírcsatorna')
+except Exception as e:
+    hibak.append('hírcsatorna hiba: ' + str(e))
+if not os.path.exists(os.path.join(D, 'levelek', 'index.html')): hibak.append('hiányzik a levelek/index.html')
 print('\n'.join(hibak) or 'Nincs hiba.')
 sys.exit(1 if hibak else 0)

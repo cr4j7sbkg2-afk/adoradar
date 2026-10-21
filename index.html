@@ -305,20 +305,41 @@
     <div>
       <div class="eyebrow">Radar-értesítő</div>
       <h2 id="bandH">Szóljunk, ha egy Önt érintő szabály továbblép?</h2>
-      <p>Amikor egy bejelentésből tervezet, egy tervezetből elfogadott törvény lesz, a profiljához tartozó változásokról rövid összefoglalót küldünk, a BékésPartners elemzésével.</p>
-      <p class="proto"><b>Prototípus</b> Az űrlap még nem küld és nem tárol adatot. Javasolt működés: csak státuszváltáskor írunk, legfeljebb havonta kétszer, és minden levél egy kattintással lemondható. Az éles indulás előtt a BékésPartners adatkezelési tájékoztatója és kifejezett hozzájárulás kell hozzá.</p>
-      <details class="sample"><summary>Példalevél megtekintése</summary><div id="sample"></div></details>
+      <p>Nem hírlevelet küldünk, hanem jelzést: érinti-e, mikortól, mit tegyen, és ki segít. Válassza ki, milyen gyakran és milyen profilra kér levelet.</p>
+      <ul class="lvls">
+        <li><b>Riasztás</b> csak akkor, ha egy Önt érintő szabály státuszt vált, vagy új változás kerül a radarra. 5–8 sor, egy teendővel.</li>
+        <li><b>Havi összefoglaló</b> a hónap mozgásaival, a következő 60 nap határidőivel és egy számpéldával. Kb. 2 perc olvasás.</li>
+      </ul>
+      <p class="proto"><b>Prototípus</b> Az űrlap még nem küld és nem tárol adatot. Az éles indításhoz a BékésPartners adatkezelési tájékoztatója, a hozzájárulás végleges szövege és egy e-mail-küldő eszköz kell. A riasztásokat az eszköz a radar profilonkénti hírcsatornájából automatikusan is kiküldheti.</p>
     </div>
     <form class="sform" id="sform" novalidate>
       <div class="row">
         <label class="vh" for="sEmail">E-mail-cím</label>
         <input id="sEmail" type="email" placeholder="E-mail-cím" autocomplete="email">
-        <label class="vh" for="sProf">Profil</label>
-        <select id="sProf"></select>
       </div>
+      <fieldset class="pref"><legend>Mit kér?</legend>
+        <label><input type="radio" name="sFreq" value="alert" checked><span><b>Csak riasztás</b>státuszváltáskor és új változásnál</span></label>
+        <label><input type="radio" name="sFreq" value="month"><span><b>Havi összefoglaló</b>minden hónap elején</span></label>
+        <label><input type="radio" name="sFreq" value="both"><span><b>Mindkettő</b></span></label>
+      </fieldset>
+      <fieldset class="pref"><legend>Kit érint? <small>több is választható; ha egyiket sem jelöli, minden változásról írunk</small></legend><div class="pref-p" id="sProfs"></div></fieldset>
+      <label class="consent"><input type="checkbox" id="sOk"><span>Hozzájárulok, hogy a BékésPartners a megadott e-mail-címre a választott gyakorisággal tájékoztató leveleket küldjön. A hozzájárulás bármikor, egy kattintással visszavonható. <small>Tervezet: a végleges szöveget a BékésPartners jogi ellenőrzése után kell rögzíteni.</small></span></label>
       <div class="row"><button type="submit">Feliratkozom</button></div>
       <p class="smsg" id="smsg" aria-live="polite"></p>
     </form>
+  </div>
+  <div class="wrap">
+    <div class="mprev" id="mprev">
+      <div class="mprev-h">
+        <div><b>Így néz ki a levél</b><span id="mpFor"></span></div>
+        <div class="mp-tabs" role="group" aria-label="Levéltípus">
+          <button type="button" data-mp="alert" aria-pressed="true">Riasztás</button><button type="button" data-mp="month" aria-pressed="false">Havi összefoglaló</button><button type="button" data-mp="w1" aria-pressed="false">Üdvözlő 1/3</button><button type="button" data-mp="w2" aria-pressed="false">2/3</button><button type="button" data-mp="w3" aria-pressed="false">3/3</button>
+        </div>
+      </div>
+      <div class="mp-subj" id="mpSubj"></div>
+      <div class="mp-body" id="mpBody"></div>
+      <p class="mp-note">A levelet a radar mostani adataiból állítjuk össze. A szögletes zárójeles részeket ([Tanácsadó neve], [fotó], linkek) a kiküldés előtt a BékésPartners tölti ki. <a id="mpFeed" href="#" target="_blank" rel="noopener noreferrer">Hírcsatorna (RSS) ehhez a profilhoz ↗</a></p>
+    </div>
   </div>
 </section>
 
