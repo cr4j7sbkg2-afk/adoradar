@@ -34,5 +34,9 @@ for u in urls:
     elif code != 200: other.append((u, code)); print('JELZÉS', code, u)
     time.sleep(1)
 print(f'\n{len(urls) - len(dead) - len(other)} él, {len(dead)} megszűnt, {len(other)} egyéb jelzés')
+if os.environ.get('GITHUB_ACTIONS'):
+    for u, c in dead: print(f'::error title=Megszűnt cikk::{c} {u}')
+    for u, c in other[:20]: print(f'::warning title=Linkjelzés::{c} {u}')
+    print(f'::notice title=Linkellenőrzés::{len(urls)} cím, {len(dead)} megszűnt, {len(other)} egyéb jelzés')
 if dead: print('A megszűnt címeket a következő frissítésnél az új címre kell cserélni (SRC.u vagy ARCH.s).')
 sys.exit(1 if dead else 0)
