@@ -54,6 +54,9 @@ head = ('<!DOCTYPE html>\n' + note + '\n<html lang="hu">\n<head>\n<meta charset=
   '<meta name="twitter:card" content="summary_large_image">\n'
   '<title>Adóradar 2027 | BékésPartners</title>\n'
   '<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 32 32\'%3E%3Crect width=\'32\' height=\'32\' rx=\'6\' fill=\'%2313407D\'/%3E%3Ccircle cx=\'16\' cy=\'16\' r=\'9\' fill=\'none\' stroke=\'%23EBA720\' stroke-width=\'3\'/%3E%3Ccircle cx=\'16\' cy=\'16\' r=\'3\' fill=\'%23fff\'/%3E%3C/svg%3E">\n'
+  '<link rel="preload" href="fonts/montserrat-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>\n'
+  '<link rel="preload" href="fonts/montserrat-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>\n'
+  '<link rel="preload" href="hero.jpg" as="image" media="(min-width: 761px)">\n<link rel="preload" href="hero-sm.jpg" as="image" media="(max-width: 760px)">\n'
   '<link rel="stylesheet" href="radar.css">\n</head>\n<body>')
 pre = ':root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}\nimg{max-width:100%}\n[hidden]{display:none!important}\n'
 files = {'index.html': head + '\n' + body.strip('\n') + '\n<script src="radar.js" defer></script>\n</body>\n</html>\n', 'radar.css': pre + css, 'radar.js': js}

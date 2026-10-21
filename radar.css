@@ -993,3 +993,49 @@ html.mb-on .toast{bottom:calc(72px + env(safe-area-inset-bottom,0px))}
   body.print-part[data-print="becslo"] .tools > :not(#becslo),body.print-part[data-print="onteszt"] .tools > :not(#onteszt){display:none!important}
   .calc{color:#000;background:#fff;border:1px solid #000}
 }
+
+/* ===== v6: UX-kör 3 ===== */
+/* több profil */
+.pf-multi{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px;margin-top:10px;font:inherit;font-size:12.5px;font-weight:700;color:#fff;background:none;border:0;padding:6px 0;cursor:pointer;text-align:left}
+.pf-multi::before{content:"";width:14px;height:14px;border:2px solid #fff;display:inline-block;align-self:center}
+.pf-multi[aria-pressed="true"]::before{background:#fff;box-shadow:inset 0 0 0 2px var(--hero-a)}
+.pf-multi span{font-weight:500;opacity:.75}
+@media (max-width:480px){.pf-multi span{display:none}}
+
+/* rendezés */
+.f-sort{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--muted)}
+.f-sort .sel{max-width:190px}
+@media (max-width:760px){.f-sort{flex:1 1 auto}.f-sort .sel{max-width:none;flex:1}}
+
+/* saját számítás a vagyonadó-dossziéban */
+.dz-mine{background:#EDF7F1;border-left:4px solid var(--seg2-t);padding:12px 14px;font-size:14px;display:flex;flex-direction:column;gap:6px}
+.dz-mine h4{color:var(--seg2-t)}
+.dz-mine h4 small{font-weight:500;letter-spacing:0;text-transform:none;color:var(--muted);margin-left:6px}
+.dz-mine b{color:var(--brand)}
+.dz-mine small{color:var(--muted)}
+.dz-mine-b{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin-top:2px}
+
+/* bemutató */
+.tour{position:fixed;left:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:35;width:min(380px,calc(100vw - 32px));background:#fff;color:var(--ink);border-top:4px solid var(--seg1);box-shadow:0 16px 44px rgba(0,0,0,.3);padding:16px 18px 14px}
+.tour[hidden]{display:none}
+.tour-k{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.tour h2{font-size:18px;font-weight:700;color:var(--brand);margin-top:6px}
+.tour p{font-size:14.5px;line-height:1.5;margin-top:6px}
+.tour-b{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+html.mb-on .tour{bottom:calc(70px + env(safe-area-inset-bottom,0px))}
+@media (max-width:760px){.tour{left:12px;right:12px;width:auto}}
+.tour-hl{outline:3px solid var(--seg1)!important;outline-offset:6px}
+body:not(.no-motion) .tour-hl{animation:tourpulse 1.6s ease-in-out 3}
+@keyframes tourpulse{50%{outline-offset:12px}}
+
+/* betöltés: vázlat-állapotok, hibaüzenet */
+.perr{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 12px);transform:translateX(-50%);z-index:60;background:#FDECEA;color:var(--crit);border:1px solid #F5C2BC;padding:10px 14px;font-size:14px;font-weight:600;max-width:min(92vw,560px)}
+.perr[hidden]{display:none}
+@keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+#list:empty::before,#td:empty::before,#cal:empty::before,#dzs:empty::before,#arc:empty::before,#sumcard:empty::before,#feed:empty::before{content:"";display:block;height:180px;margin-top:16px;background:linear-gradient(90deg,#E6E6E6 0,#F3F3F3 40%,#E6E6E6 80%);background-size:800px 100%;border:1px solid var(--line)}
+#dzs:empty::before{grid-column:1/-1;height:320px}
+body:not(.no-motion) #list:empty::before,body:not(.no-motion) #td:empty::before,body:not(.no-motion) #cal:empty::before,body:not(.no-motion) #dzs:empty::before,body:not(.no-motion) #arc:empty::before{animation:shimmer 1.4s linear infinite}
+.radar:not(.ready)::before{content:"";position:absolute;inset:8.3%;border-radius:50%;background:radial-gradient(circle,transparent 0 17%,rgba(255,255,255,.14) 17.3% 17.8%,transparent 18% 41%,rgba(255,255,255,.14) 41.3% 41.8%,transparent 42% 66%,rgba(255,255,255,.14) 66.3% 66.8%,transparent 67% 99%,rgba(255,255,255,.2) 99.3%)}
+
+/* teljesítmény: kisebb fejlécfotó mobilon */
+@media (max-width:760px){.masthead{background-image:url("hero-sm.jpg")}}

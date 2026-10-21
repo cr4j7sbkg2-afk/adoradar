@@ -34,6 +34,10 @@
 <meta name="twitter:card" content="summary_large_image">
 <title>Adóradar 2027 | BékésPartners</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2313407D'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23EBA720' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/montserrat-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/montserrat-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="hero.jpg" as="image" media="(min-width: 761px)">
+<link rel="preload" href="hero-sm.jpg" as="image" media="(max-width: 760px)">
 <link rel="stylesheet" href="radar.css">
 </head>
 <body>
@@ -66,6 +70,7 @@
       <div class="h-prof">
         <div class="h-lbl" id="profLbl">Kezdje itt: kit érint?</div>
         <div class="prof" id="prof" role="group" aria-labelledby="profLbl"></div>
+        <button type="button" class="pf-multi" id="pfMulti" aria-pressed="false">Több profilt választok <span>például cégtulajdonos és magánvagyon együtt</span></button>
       </div>
       <div class="h-radar">
         <div class="radar" id="radarBox">
@@ -158,6 +163,7 @@
         <label class="vh" for="fq">Keresés a változások között</label>
         <div class="f-search"><input id="fq" type="search" placeholder="Keresés: pl. KATA, osztalék, értéknap" autocomplete="off" enterkeyhint="search"></div>
         <button type="button" class="f-open" id="fOpen" aria-expanded="false" aria-controls="fx">Szűrés <b id="fOpenN"></b></button>
+        <label class="f-sort"><span>Rendezés</span><select class="sel" id="sortSel"><option value="">Alapsorrend</option><option value="date">Legközelebbi dátum</option><option value="new">Legutóbb frissült</option><option value="prac">Szakterület szerint</option></select></label>
         <span class="fcount" id="fcount" aria-live="polite"></span>
       </div>
       <div class="chips" id="stChips" role="group" aria-label="Státusz szerinti szűrés"></div>
@@ -321,7 +327,7 @@
     <div class="ft-grid">
       <div class="ft-brand">
         <picture>
-          <source srcset="logo.png" media="(prefers-reduced-motion: reduce)">
+          <source srcset="logo.png" media="(prefers-reduced-motion: reduce), (max-width: 760px)">
           <img class="ft-logo" src="logo-kibomlas.gif" alt="BékésPartners – Tax · Legal · Trust · Foundation" width="940" height="144" loading="lazy">
         </picture>
         <p>Független ügyvédek és közgazdászok: adó, jog, bizalmi vagyonkezelés és alapítvány – hazai és nemzetközi ügyfeleknek. A PrimeGlobal tagja.</p>
@@ -357,6 +363,13 @@
   <a href="#ertesito"><b>✉</b>Értesítő</a>
   <button type="button" id="mbTop"><b>↑</b>Fel</button>
 </nav>
+<div class="tour" id="tour" role="dialog" aria-labelledby="tourH" aria-describedby="tourP" hidden>
+  <div class="tour-k" id="tourK"></div>
+  <h2 id="tourH"></h2>
+  <p id="tourP"></p>
+  <div class="tour-b"><button type="button" class="linkbtn" id="tourSkip">Kihagyom</button><button type="button" class="tbtn solid" id="tourNext">Tovább</button></div>
+</div>
+<div class="perr" id="perr" role="alert" hidden>Az oldal egy része nem töltődött be. Frissítse az oldalt; ha a hiba megmarad, próbálja másik böngészőben.</div>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 <a class="cv-mini" id="cvMini" href="#cvRes" hidden></a>
 <script src="radar.js" defer></script>

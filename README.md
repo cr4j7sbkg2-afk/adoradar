@@ -9,6 +9,7 @@ A BékésPartners Insights-elemzéseiből (2018–2026) épített szabályozási
 - `radar.css` – megjelenés (a Vagyonadó-kalauz arculata)
 - `radar.js` – az elején az **ADATOK** blokk (forrásanyagok, változások, határidők, dossziék, archívum), utána a működés
 - `fonts/`, `hero.jpg`, `logo.png`, `logo-kibomlas.gif`, `sqn-logo.png` – arculati elemek
+- `hero-sm.jpg` – kisebb fejlécfotó mobilra
 - `og.jpg` – megosztási előnézet (1200×630), a `tools/artifact2gh.py` hivatkozza be
 - `tools/artifact2gh.py` – a fenti három fájlt generálja a Claude-artifact forrásából
 - `tools/ellenorzes.py` – helyi böngészős ellenőrzés a valódi biztonsági szabályokkal (asztali és mobil szélesség)
