@@ -14,6 +14,7 @@ srv = http.server.ThreadingHTTPServer(('127.0.0.1', 0), functools.partial(H, dir
 port = srv.server_address[1]
 threading.Thread(target=srv.serve_forever, daemon=True).start()
 hibak = []
+infok = []
 with sync_playwright() as p:
   for bn in BROWSERS:
     try:
@@ -25,7 +26,8 @@ with sync_playwright() as p:
     for w, h in [(1360, 900), (390, 844)]:
         pg = b.new_page(viewport={'width': w, 'height': h})
         pg.on('pageerror', lambda e, w=w, bn=bn: hibak.append(f'{bn} {w}px szkripthiba: {e}'))
-        pg.on('console', lambda m, w=w, bn=bn: hibak.append(f'{bn} {w}px {m.type}: {m.text}') if m.type in ('error', 'warning') else None)
+        # Firefox a CSS-figyelmeztetéseket (ismeretlen tulajdonság stb.) is „warning” típussal adja; ott csak a hiba számít.
+        pg.on('console', lambda m, w=w, bn=bn: hibak.append(f'{bn} {w}px {m.type}: {m.text}') if m.type == 'error' or (m.type == 'warning' and bn == 'chromium') else (infok.append(f'{bn} {w}px {m.type}: {m.text[:160]}') if m.type == 'warning' else None))
         pg.goto(f'http://127.0.0.1:{port}/index.html')
         pg.wait_for_timeout(1500)
         i = pg.evaluate("""({title: document.title, stamp: window.STAMP, sw: document.documentElement.scrollWidth,
@@ -63,5 +65,10 @@ try:
 except Exception as e:
     hibak.append('hírcsatorna hiba: ' + str(e))
 if not os.path.exists(os.path.join(D, 'levelek', 'index.html')): hibak.append('hiányzik a levelek/index.html')
+if infok: print('Figyelmeztetések (nem hibák):\n' + '\n'.join(infok[:20]))
 print('\n'.join(hibak) or 'Nincs hiba.')
+if os.environ.get('GITHUB_ACTIONS'):
+    # GitHub-annotáció: a check-runs API-ból a napló nélkül is kiolvasható
+    for h in hibak: print('::error title=Adóradar ellenőrzés::' + h.replace('\n', ' ')[:900])
+    for i in infok[:10]: print('::notice title=Adóradar figyelmeztetés::' + i.replace('\n', ' ')[:900])
 sys.exit(1 if hibak else 0)
