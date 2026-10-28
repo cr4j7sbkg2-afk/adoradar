@@ -189,16 +189,16 @@
 
     <div class="cv" id="cegertek">
       <div class="cv-top">
-        <div class="eyebrow">Vagyonadó-tervezet · 1. melléklet</div>
+        <div class="eyebrow">Vagyonadó-törvényjavaslat (T/930)</div>
         <h3>Mennyit ér a cége a vagyonadó szerint?</h3>
-        <p>A tervezet a nem tőzsdei céget nem piaci áron, hanem képlettel értékeli: a saját tőke egyharmad, a tőkésített hozam kétharmad súllyal számít. A nyereséges, eszközszegény cégek így a könyv szerinti értékük többszörösén adózhatnak, az eszközgazdag, alacsony hozamúak alatta.</p>
+        <p>A benyújtott javaslat a nem tőzsdei céget nem piaci áron, hanem képlettel értékeli: a saját tőke egyharmad, a tőkésített hozam kétharmad súllyal számít. A nyereséges, eszközszegény cégek így a könyv szerinti értékük többszörösén adózhatnak, az eszközgazdag, alacsony hozamúak alatta.</p>
         <div class="cv-pre" id="cvPre" role="group" aria-label="Példák"></div>
         <p class="cv-note" id="cvNote"></p>
       </div>
       <div class="cv-body">
         <form class="cv-form" id="cvForm" autocomplete="off" novalidate>
           <div class="unit-row"><span>Összegek</span><div class="unit" id="cvUnit" role="group" aria-label="Mértékegység a cégérték-kalkulátorban"><button type="button" data-u="M" aria-pressed="true">M Ft</button><button type="button" data-u="Mrd" aria-pressed="false">Mrd Ft</button></div></div>
-          <div class="cv-f"><label for="cvSt">Saját tőke</label><div class="nin"><input id="cvSt" type="text" inputmode="decimal"><span class="u">M Ft</span></div><small>az utolsó lezárt beszámoló szerint</small></div>
+          <div class="cv-f"><label for="cvSt">Saját tőke</label><div class="nin"><input id="cvSt" type="text" inputmode="decimal"><span class="u">M Ft</span></div><small>az utolsó lezárt beszámoló szerint; negatív saját tőke nullának számít</small></div>
           <div class="cv-f"><label for="cvQ">Tulajdoni hányad</label><div class="nin"><input id="cvQ" type="text" inputmode="decimal"><span>%</span></div><small>50% alatt kisebbségi diszkont választható</small></div>
           <fieldset class="cv-e"><legend>Adózott eredmény, az utolsó három lezárt év</legend>
             <div class="cv-e3">
@@ -214,9 +214,10 @@
           </div>
           <div class="cv-f"><label for="cvDiv">Fordulónap után jóváhagyott osztalék</label><div class="nin"><input id="cvDiv" type="text" inputmode="decimal"><span class="u">M Ft</span></div><small>csökkenti a saját tőkét</small></div>
           <div class="cv-chk">
-            <label><input type="checkbox" id="cvHold"> Holding: a részesedések az eszközök legalább 90%-át adják</label>
+            <label><input type="checkbox" id="cvHold"> Holding: elsődleges célja más cégek részesedésének birtoklása és irányítása, és a részesedés, értékpapír, pénzeszköz, saját célú ingatlan és leányvállalati követelés az eszközök legalább 90%-át adja</label>
             <label><input type="checkbox" id="cvNew"> Jogelőd nélkül alapított, induló cég (legfeljebb 3. üzleti év)</label>
             <label id="cvDiscL"><input type="checkbox" id="cvDisc"> Kisebbségi diszkontot alkalmazok</label>
+            <label id="cvFamL"><input type="checkbox" id="cvFam"> A közeli hozzátartozókkal (házastárs, egyenes ági rokon, testvér) együtt legalább 50%</label>
           </div>
         </form>
         <div class="cv-res" id="cvRes" aria-live="polite"></div>
@@ -259,7 +260,7 @@
         <label class="cchk"><input type="checkbox" id="cCouple"> Házaspár, a közös vagyon 50–50%-ban megosztva (két adóalany, két mentes sáv)</label>
         <div class="cres" id="cRes" aria-live="polite"></div>
         <a class="cta ghost" id="kalauzLink" href="https://cr4j7sbkg2-afk.github.io/vagyonado-kalauz2026/" target="_blank" rel="noopener noreferrer">Pontos számítás: Vagyonadó-kalauz</a>
-        <p class="fine">Az ingatlan, a cégrészesedés és a külföldi vagyon értéke a tervezet kötött szabályai szerint számít, ezért a tényleges adóalap ettől érdemben eltérhet.</p>
+        <p class="fine">Az ingatlan, a cégrészesedés és a külföldi vagyon értéke a benyújtott javaslat kötött szabályai szerint számít, ezért a tényleges adóalap ettől érdemben eltérhet.</p>
       </div>
     </div>
   </section>
